@@ -1,0 +1,230 @@
+version: '3.5'
+# 服务容器配置
+services:
+  etcd:
+    # 自定义容器名称
+    image: bitnami/etcd
+    container_name: etcd
+    environment:
+      TZ: "Asia/Shanghai"
+      ALLOW_NONE_AUTHENTICATION: "yes"
+      #- ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+      #- ETCD_ADVERTISE_CLIENT_URLS=http://127.0.0.1:2379
+      ETCD_ADVERTISE_CLIENT_URLS: "http://0.0.0.0:2379"
+      ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2379"
+      ETCDCTL_API: 2
+    ports:
+      # 设置端口映射 Etcd 服务映射宿主机端口号，可在宿主机127.0.0.1:2379访问
+      - "2379:2379"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.6
+    restart: always
+
+  etcd-manage:
+    image: rustyx/etcdv3-browser
+    container_name: etcd-manage
+    environment:
+      TZ: "Asia/Shanghai"
+      HOST: "0.0.0.0"
+      ETCD: etcd:2379
+      CORS: "http://localhost:7000,http://localhost:8081"
+      EDITABLE: 1
+    ports:
+      - "7000:8081" # 设置容器8080端口映射指定宿主机端口，用于宿主机访问可视化web
+    depends_on:
+      # 依赖容器
+      - etcd # 在 etcd 服务容器启动后启动
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.7
+    restart: always
+    links:
+      - etcd:etcd
+  mysql:
+    container_name: "mysql_c"
+    build:
+      context: .
+      dockerfile: ./container/mysql/Dockerfile
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./container/mysql/my.cnf:/etc/mysql/conf.d/source/go.cnf:rw
+      - ./container/mysql/data/:/var/lib/mysql:rw
+      - ./container/mysql/logs/:/var/log/mysql:rw
+    tty: true
+  redis:
+    container_name: "redis_c"
+    image: redis
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.9
+    ports:
+      - 6379:6379
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./container/redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      - ./container/redis/logs/:/usr/local/redis/:rw
+    tty: true
+
+  #prometheus监控 — Prometheus for monitoring
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    environment:
+      # 时区上海 - Time zone Shanghai (Change if needed)
+      TZ: Asia/Shanghai
+    volumes:
+      - ./container/prometheus/server/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./container/prometheus/data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    restart: always
+    user: root
+    ports:
+      - 9090:9090
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.10
+
+  #查看prometheus监控数据 - Grafana to view Prometheus monitoring data
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    hostname: grafana
+    user: root
+    environment:
+      # 时区上海 - Time zone Shanghai (Change if needed)
+      TZ: Asia/Shanghai
+    restart: always
+    volumes:
+      - ./container/grafana/data:/var/lib/grafana
+    ports:
+      - "3001:3000"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.11
+  elasticsearch:
+    image: elasticsearch:7.17.1
+    container_name: elasticsearch
+    restart: always
+    hostname: elasticsearch
+    environment:
+      # 开启内存锁定
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      # 指定单节点启动
+      - discovery.type=single-node
+      #- ELASTIC_PASSWORD=elasticsearch
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
+      - xpack.security.enabled=false
+    ulimits:
+      # 取消内存相关限制  用于开启内存锁定
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./container/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./container/elasticsearch/log:/usr/share/elasticsearch/logs
+      - ./container/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - ./container/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - 9200:9200
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.12
+  jaeger-collector:
+    image: jaegertracing/jaeger-collector:latest
+    ports:
+      - "14269:14269"
+      - "14268:14268"
+      - "14267:14267"
+      - "9411:9411"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.13
+    restart: on-failure
+    container_name: jaeger-collector
+    hostname: jaeger-collector
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+    command:
+      [
+        "--span-storage.type=elasticsearch",
+        "--es.server-urls=http://elasticsearch:9200",
+        "--es.num-shards=1",
+        "--es.num-replicas=0",
+        "--log-level=error"
+      ]
+    depends_on:
+      - elasticsearch
+
+  jaeger-agent:
+    image: jaegertracing/jaeger-agent:latest
+    hostname: jaeger-agent
+    container_name: jaeger-agent
+    command:
+      [
+        "--reporter.type=grpc",
+        "--reporter.grpc.host-port=jaeger-collector:14267"
+      ]
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.14
+    restart: on-failure
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+    depends_on:
+      - jaeger-collector
+      - elasticsearch
+
+  jaeger-query:
+    image: jaegertracing/jaeger-query:latest
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+      - no_proxy=localhost
+      - ES_SERVER_URLS=http://elasticsearch:9200
+      - ES_TAGS_AS_FIELDS=true
+    ports:
+      - "16686:16686"
+      - "16687:16687"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.15
+    restart: on-failure
+    container_name: jaeger-query
+    hostname: jaeger-query
+    command:
+      [
+        "--span-storage.type=elasticsearch",
+        "--es.sniffer=false",
+        #        "--query.static-files=/go/jaeger-ui/",
+        "--log-level=debug",
+        "--es.server-urls=http://elasticsearch:9200"
+      ]
+    depends_on:
+      - jaeger-agent
+# 网络配置
+networks:
+  mallv1:
+    name: mallv1
+    driver: bridge # 设置网络模式
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
