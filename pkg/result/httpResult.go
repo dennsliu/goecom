@@ -22,12 +22,12 @@ func HttpResult(r *http.Request, w http.ResponseWriter, resp interface{}, err er
 		errcode := xerr.ServerCommonError
 		//default error msg
 		errmsg := "服务器开小差啦，稍后再试"
-
 		causeErr := errors.Cause(err)
 		if e, ok := causeErr.(*xerr.CodeError); ok {
 			//custom error
 			errcode = e.GetErrCode()
 			errmsg = e.GetErrMsg()
+
 		} else {
 			if gstatus, ok := status.FromError(causeErr); ok {
 				//grpc error by uint32 convert
@@ -38,9 +38,7 @@ func HttpResult(r *http.Request, w http.ResponseWriter, resp interface{}, err er
 				}
 			}
 		}
-
 		logx.WithContext(r.Context()).Errorf("【API-ERR】 : %+v ", err)
-
 		httpx.WriteJson(w, http.StatusBadRequest, Error(errcode, errmsg))
 	}
 }
@@ -55,7 +53,6 @@ func AuthHttpResult(r *http.Request, w http.ResponseWriter, resp interface{}, er
 		//return error
 		errcode := xerr.ServerCommonError
 		errmsg := "服务器开小差啦，稍后再来试一试"
-
 		causeErr := errors.Cause(err)
 		if e, ok := causeErr.(*xerr.CodeError); ok {
 			errcode = e.GetErrCode()
@@ -69,9 +66,7 @@ func AuthHttpResult(r *http.Request, w http.ResponseWriter, resp interface{}, er
 				}
 			}
 		}
-
 		logx.WithContext(r.Context()).Errorf("【GATEWAY-ERR】 : %+v ", err)
-
 		httpx.WriteJson(w, http.StatusUnauthorized, Error(errcode, errmsg))
 	}
 }

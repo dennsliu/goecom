@@ -1,110 +1,10 @@
 syntax = "v1"
-type (
-	Merchant {
-		Id       int64  `json:"id"`
-		Name     int64  `json:"order"`
-		Status   int64  `json:"status"`
-		HttpCode int64  `json:"httpcode"`
-		Message  string `json:"message"`
-	}
-	MerchantAddReq {
-		Name   int64 `json:"order"`
-		Status int64 `json:"status"`
-	}
-	MerchantUpdateReq {
-		Id     int64 `json:"id"`
-		Name   int64 `json:"order"`
-		Status int64 `json:"status"`
-	}
-	MerchantGetReq {
-		Id int64 `json:"id"`
-	}
-
-	MerchantDeleteReq {
-		Id string `json:"id"`
-	}
-	MerchantDeleteReply {
-		HttpCode int64  `json:"httpcode"`
-		Message  string `json:"message"`
-	}
-	MerchantSearchReq {
-		Keyword  string `json:"keyword"`
-		Page     int64  `json:"page"`
-		Status   int64  `json:"page"`
-		PageSize int64  `json:"pagesize"`
-		OrderBy  string `json:"orderby"`
-	}
-	MerchantSearchReply {
-		Mechants []Merchant `json:"merchants"`
-		IsEnd    bool       `json:"isend"`
-		LastVal  int64      `json:"lastval"`
-		HttpCode int64      `json:"httpcode"`
-		Message  string     `json:"message"`
-	}
-	MerchantUser {
-		Id          int64  `json:"id"`
-		FirstName   string `json:"firstname"`
-		MidName     string `json:"midname"`
-		LastName    string `json:"lastname"`
-		Password    string `json:"password"`
-		Telephone   string `json:"telephone"`
-		Mobliephone string `json:"mobliephone"`
-		MerchantId  int64  `json:"merchantid"`
-		Status      int64  `json:"status"`
-		HttpCode    int64  `json:"httpcode"`
-		Message     string `json:"message"`
-	}
-	MerchantUserAddReq {
-		Id          int64  `json:"id"`
-		FirstName   string `json:"firstname"`
-		MidName     string `json:"midname"`
-		LastName    string `json:"lastname"`
-		Password    string `json:"password"`
-		Telephone   string `json:"telephone"`
-		Mobliephone string `json:"mobliephone"`
-		MerchantId  int64  `json:"merchantid"`
-	}
-	MerchantUserUpdateReq {
-		FirstName   string `json:"firstname"`
-		MidName     string `json:"midname"`
-		LastName    string `json:"lastname"`
-		Password    string `json:"password"`
-		Telephone   string `json:"telephone"`
-		Mobliephone string `json:"mobliephone"`
-		MerchantId  int64  `json:"merchantid"`
-	}
-	MerchantUserGetReq {
-		Id int64 `json:"id"`
-	}
-
-	MerchantUserDeleteReq {
-		Id string `json:"id"`
-	}
-	MerchantUserDeleteReply {
-		HttpCode int64  `json:"httpcode"`
-		Message  string `json:"message"`
-	}
-	MerchantUserSearchReq {
-		Keyword  string `json:"keyword"`
-		Page     int64  `json:"page"`
-		Status   int64  `json:"page"`
-		PageSize int64  `json:"pagesize"`
-		OrderBy  string `json:"orderby"`
-	}
-	MerchantUserSearchReply {
-		MechantUsers []MerchantUser `json:"merchantusers"`
-		IsEnd        bool           `json:"isend"`
-		LastVal      int64          `json:"lastval"`
-		HttpCode     int64          `json:"httpcode"`
-		Message      string         `json:"message"`
-	}
-	MerchantUserLoginReq {
-		UserName string `json:"username"`
-		Password string `json:"password"`
-	}
+import (
+	"./desc/type/merchant.api"
+	"./desc/type/merchantuser.api"
 )
-
 service lib-api{
+	//merchant
 	@handler merchantadd
 	post /v1/lib/merchant/add (MerchantAddReq) returns (Merchant)
 	@handler merchantupdate
@@ -115,7 +15,7 @@ service lib-api{
 	post /v1/lib/merchant/delete (MerchantDeleteReq) returns (MerchantDeleteReply)
 	@handler merchantsearch
 	post /v1/lib/merchant/search (MerchantSearchReq) returns (MerchantSearchReply)
-	
+	//merchant user
 	@handler merchantuseradd
 	post /v1/lib/merchant/user/add (MerchantUserAddReq) returns (MerchantUser)
 	@handler merchantuserupdate
