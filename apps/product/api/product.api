@@ -1,0 +1,68 @@
+syntax = "v1"
+type (
+	Brand {
+		Id         int64  `json:"id"`
+		Order      int64  `json:"order"`
+		Status     int64  `json:"status"`
+		MerchantId int64  `json:"merchantid"`
+		ParentId   int64  `json:"parentid"`
+		Code       string `json:"code"`
+		CreatedAt  string `json:"createdat"`
+		UpdateAt   string `json:"updateat"`
+		HttpCode   int64  `json:"httpcode"`
+		Message    string `json:"message"`
+	}
+	BrandAddReq {
+		Order      int64  `json:"order"`
+		Status     int64  `json:"status"`
+		MerchantId int64  `json:"merchantid"`
+		ParentId   int64  `json:"parentid"`
+		Code       string `json:"code"`
+	}
+	BrandUpdateReq {
+		Id         int64  `json:"id"`
+		Order      int64  `json:"order"`
+		Status     int64  `json:"status"`
+		MerchantId int64  `json:"merchantid"`
+		ParentId   int64  `json:"parentid"`
+		Code       string `json:"code"`
+	}
+	BrandGetReq {
+		Id int64 `json:"id"`
+	}
+
+	BrandDeleteReq {
+		Id string `json:"id"`
+	}
+	BrandDeleteReply {
+		HttpCode int64  `json:"httpcode"`
+		Message  string `json:"message"`
+	}
+	BrandSearchReq {
+		Keyword  string `json:"keyword"`
+		Page     int64  `json:"page"`
+		Status   int64  `json:"page"`
+		PageSize int64  `json:"pagesize"`
+		OrderBy  string `json:"orderby"`
+	}
+	BrandSearchReply {
+		Brands   []Brand `json:"brands"`
+		IsEnd    bool    `json:"isend"`
+		LastVal  int64   `json:"lastval"`
+		HttpCode int64   `json:"httpcode"`
+		Message  string  `json:"message"`
+	}
+)
+
+service product-api{
+	@handler brandadd
+	post /v1/product/brand/add (BrandAddReq) returns (Brand)
+	@handler brandupdate
+	post /v1/product/brand/update (BrandUpdateReq) returns (Brand)
+	@handler brandget
+	post /v1/product/brand/get (BrandGetReq) returns (Brand)
+	@handler branddelete
+	post /v1/product/brand/delete (BrandDeleteReq) returns (BrandDeleteReply)
+	@handler brandsearch
+	post /v1/product/brand/search (BrandSearchReq) returns (BrandSearchReply)
+}
