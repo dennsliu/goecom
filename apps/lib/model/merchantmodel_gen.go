@@ -31,6 +31,7 @@ type (
 		FindOne(ctx context.Context, id int64) (*Merchant, error)
 		Update(ctx context.Context, newData *Merchant) error
 		Delete(ctx context.Context, id int64) error
+		Search(keyword string, page int64, pageSize int64, orderBy string) (*[]Merchant, error)
 	}
 
 	defaultMerchantModel struct {
@@ -97,7 +98,29 @@ func (m *defaultMerchantModel) Update(ctx context.Context, data *Merchant) error
 	}, merchantIdKey)
 	return err
 }
-
+func (m *defaultMerchantModel) Search(keyword string, page int64, pageSize int64, orderBy string) (*[]Merchant, error)  {
+	if len(orderBy)==0 {
+		orderBy = "id"
+	}
+	if page < 1 {
+		page = 1
+	}
+	if pageSize < 1 {
+		pageSize = 20
+	}
+	fmt.Printf("merchant search ------------")
+	var resp []Merchant
+	query := fmt.Sprintf("select %s from %s order by %s limit %d", merchantRows, m.table, orderBy, pageSize)
+	err := m.QueryRowsNoCache(&resp, query)
+	fmt.Println(err)
+	fmt.Println(resp)
+	switch err {
+	case nil:
+		return &resp, nil
+	default:
+		return nil, err
+	}
+}
 func (m *defaultMerchantModel) formatPrimary(primary interface{}) string {
 	return fmt.Sprintf("%s%v", cacheMerchantIdPrefix, primary)
 }

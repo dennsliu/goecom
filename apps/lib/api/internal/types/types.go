@@ -3,20 +3,18 @@ package types
 
 type Merchant struct {
 	Id       int64  `json:"id"`
-	Name     int64  `json:"order"`
+	Name     string  `json:"name"`
 	Status   int64  `json:"status"`
-	HttpCode int64  `json:"httpcode"`
-	Message  string `json:"message"`
 }
 
 type MerchantAddReq struct {
-	Name   int64 `json:"order"`
+	Name   int64 `json:"name"`
 	Status int64 `json:"status"`
 }
 
 type MerchantUpdateReq struct {
 	Id     int64 `json:"id"`
-	Name   int64 `json:"order"`
+	Name   int64 `json:"name"`
 	Status int64 `json:"status"`
 }
 
@@ -29,14 +27,13 @@ type MerchantDeleteReq struct {
 }
 
 type MerchantDeleteReply struct {
-	HttpCode int64  `json:"httpcode"`
-	Message  string `json:"message"`
+	Id string `json:"id"`
 }
 
 type MerchantSearchReq struct {
 	Keyword  string `json:"keyword"`
 	Page     int64  `json:"page"`
-	Status   int64  `json:"page"`
+	Status   int64  `json:"status"`
 	PageSize int64  `json:"pagesize"`
 	OrderBy  string `json:"orderby"`
 }
@@ -45,8 +42,6 @@ type MerchantSearchReply struct {
 	Mechants []Merchant `json:"merchants"`
 	IsEnd    bool       `json:"isend"`
 	LastVal  int64      `json:"lastval"`
-	HttpCode int64      `json:"httpcode"`
-	Message  string     `json:"message"`
 }
 
 type MerchantUser struct {
