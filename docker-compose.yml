@@ -219,6 +219,21 @@ services:
       ]
     depends_on:
       - jaeger-agent
+  swaggerui:
+    image: swaggerapi/swagger-ui:latest
+    ports:
+      - "808:8080"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.16
+    restart: always
+    container_name: swaggerui
+    volumes:
+      - ./apps/lib/api/lib.json:/usr/share/nginx/html/config/lib.json:rw
+    environment:
+      SWAGGER_JSON: /usr/share/nginx/html/config/lib.json
+     # API_URL: "localhost:6001"
+    #  URLS: "[{url:'/usr/share/nginx/html/config/lib.json',name:'lib'}]"
 # 网络配置
 networks:
   mallv1:
