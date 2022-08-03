@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/zeromicro/go-zero/core/stores/cache"
+	"github.com/tal-tech/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/rest"
 )
 
@@ -11,4 +11,8 @@ type Config struct {
 		DataSource string
 	}
 	CacheRedis cache.CacheConf
+	Auth       struct {
+		AccessSecret string
+		AccessExpire int64
+	}
 }

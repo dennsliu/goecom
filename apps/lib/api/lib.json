@@ -1,0 +1,741 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/lib/merchant/add": {
+      "post": {
+        "operationId": "merchantadd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Merchant"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantAddReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/delete": {
+      "post": {
+        "operationId": "merchantdelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantDeleteReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantDeleteReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/get": {
+      "post": {
+        "operationId": "merchantget",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Merchant"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantGetReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/search": {
+      "post": {
+        "operationId": "merchantsearch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantSearchReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantSearchReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/update": {
+      "post": {
+        "operationId": "merchantupdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Merchant"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantUpdateReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/user/add": {
+      "post": {
+        "operationId": "merchantuseradd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantUser"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantUserAddReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/user/delete": {
+      "post": {
+        "operationId": "merchantuserdelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantUserDeleteReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantUserDeleteReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/user/get": {
+      "post": {
+        "operationId": "merchantuserget",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantUser"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantUserGetReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/user/login": {
+      "post": {
+        "operationId": "merchantuserlogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Merchant"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantUserLoginReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/user/search": {
+      "post": {
+        "operationId": "merchantusersearch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantUserSearchReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantSearchReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
+    "/v1/lib/merchant/user/update": {
+      "post": {
+        "operationId": "merchantuserupdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantUser"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantUserUpdateReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Merchant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdat": {
+          "type": "string"
+        },
+        "updatedat": {
+          "type": "string"
+        }
+      },
+      "title": "Merchant",
+      "required": [
+        "id",
+        "name",
+        "status",
+        "createdat",
+        "updatedat"
+      ]
+    },
+    "MerchantAddReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantAddReq",
+      "required": [
+        "name",
+        "status"
+      ]
+    },
+    "MerchantDeleteReply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "MerchantDeleteReply",
+      "required": [
+        "id"
+      ]
+    },
+    "MerchantDeleteReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "MerchantDeleteReq",
+      "required": [
+        "id"
+      ]
+    },
+    "MerchantGetReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantGetReq",
+      "required": [
+        "id"
+      ]
+    },
+    "MerchantSearchReply": {
+      "type": "object",
+      "properties": {
+        "merchants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Merchant"
+          }
+        },
+        "isend": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "lastval": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantSearchReply",
+      "required": [
+        "merchants",
+        "isend",
+        "lastval"
+      ]
+    },
+    "MerchantSearchReq": {
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pagesize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "orderby": {
+          "type": "string"
+        },
+        "ordertype": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantSearchReq",
+      "required": [
+        "keyword",
+        "page",
+        "status",
+        "pagesize",
+        "orderby",
+        "ordertype"
+      ]
+    },
+    "MerchantUpdateReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantUpdateReq",
+      "required": [
+        "id",
+        "name",
+        "status"
+      ]
+    },
+    "MerchantUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "mobliephone": {
+          "type": "string"
+        },
+        "merchantid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdat": {
+          "type": "string"
+        },
+        "updatedat": {
+          "type": "string"
+        }
+      },
+      "title": "MerchantUser",
+      "required": [
+        "id",
+        "nickname",
+        "email",
+        "username",
+        "password",
+        "telephone",
+        "mobliephone",
+        "merchantid",
+        "status",
+        "createdat",
+        "updatedat"
+      ]
+    },
+    "MerchantUserAddReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "mobliephone": {
+          "type": "string"
+        },
+        "merchantid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantUserAddReq",
+      "required": [
+        "id",
+        "nickname",
+        "username",
+        "email",
+        "password",
+        "telephone",
+        "mobliephone",
+        "merchantid"
+      ]
+    },
+    "MerchantUserDeleteReply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "MerchantUserDeleteReply",
+      "required": [
+        "id"
+      ]
+    },
+    "MerchantUserDeleteReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "MerchantUserDeleteReq",
+      "required": [
+        "id"
+      ]
+    },
+    "MerchantUserGetReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantUserGetReq",
+      "required": [
+        "id"
+      ]
+    },
+    "MerchantUserLoginReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantUserLoginReq",
+      "required": [
+        "username",
+        "password",
+        "type"
+      ]
+    },
+    "MerchantUserSearchReply": {
+      "type": "object",
+      "properties": {
+        "merchantusers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MerchantUser"
+          }
+        },
+        "isend": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "lastval": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantUserSearchReply",
+      "required": [
+        "merchantusers",
+        "isend",
+        "lastval"
+      ]
+    },
+    "MerchantUserSearchReq": {
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pagesize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "orderby": {
+          "type": "string"
+        },
+        "ordertype": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantUserSearchReq",
+      "required": [
+        "keyword",
+        "page",
+        "pagesize",
+        "orderby",
+        "ordertype"
+      ]
+    },
+    "MerchantUserUpdateReq": {
+      "type": "object",
+      "properties": {
+        "nickname": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "mobliephone": {
+          "type": "string"
+        },
+        "merchantid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantUserUpdateReq",
+      "required": [
+        "nickname",
+        "telephone",
+        "mobliephone",
+        "merchantid"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

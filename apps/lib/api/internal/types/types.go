@@ -2,9 +2,11 @@
 package types
 
 type Merchant struct {
-	Id       int64  `json:"id"`
-	Name     string  `json:"name"`
-	Status   int64  `json:"status"`
+	Id        int64  `json:"id"`
+	Name      int64  `json:"name"`
+	Status    int64  `json:"status"`
+	CreatedAt string `json:"createdat"`
+	UpdatedAt string `json:"updatedat"`
 }
 
 type MerchantAddReq struct {
@@ -31,11 +33,12 @@ type MerchantDeleteReply struct {
 }
 
 type MerchantSearchReq struct {
-	Keyword  string `json:"keyword"`
-	Page     int64  `json:"page"`
-	Status   int64  `json:"status"`
-	PageSize int64  `json:"pagesize"`
-	OrderBy  string `json:"orderby"`
+	Keyword   string `json:"keyword"`
+	Page      int64  `json:"page"`
+	Status    int64  `json:"status"`
+	PageSize  int64  `json:"pagesize"`
+	OrderBy   string `json:"orderby"`
+	OrderType int64  `json:"ordertype"`
 }
 
 type MerchantSearchReply struct {
@@ -46,23 +49,23 @@ type MerchantSearchReply struct {
 
 type MerchantUser struct {
 	Id          int64  `json:"id"`
-	FirstName   string `json:"firstname"`
-	MidName     string `json:"midname"`
-	LastName    string `json:"lastname"`
+	NickName    string `json:"nickname"`
+	Email       string `json:"email"`
+	UserName    string `json:"username"`
 	Password    string `json:"password"`
 	Telephone   string `json:"telephone"`
 	Mobliephone string `json:"mobliephone"`
 	MerchantId  int64  `json:"merchantid"`
 	Status      int64  `json:"status"`
-	HttpCode    int64  `json:"httpcode"`
-	Message     string `json:"message"`
+	CreatedAt   string `json:"createdat"`
+	UpdatedAt   string `json:"updatedat"`
 }
 
 type MerchantUserAddReq struct {
 	Id          int64  `json:"id"`
-	FirstName   string `json:"firstname"`
-	MidName     string `json:"midname"`
-	LastName    string `json:"lastname"`
+	NickName    string `json:"nickname"`
+	UserName    string `json:"username"`
+	Email       string `json:"email"`
 	Password    string `json:"password"`
 	Telephone   string `json:"telephone"`
 	Mobliephone string `json:"mobliephone"`
@@ -70,10 +73,7 @@ type MerchantUserAddReq struct {
 }
 
 type MerchantUserUpdateReq struct {
-	FirstName   string `json:"firstname"`
-	MidName     string `json:"midname"`
-	LastName    string `json:"lastname"`
-	Password    string `json:"password"`
+	NickName    string `json:"nickname"`
 	Telephone   string `json:"telephone"`
 	Mobliephone string `json:"mobliephone"`
 	MerchantId  int64  `json:"merchantid"`
@@ -88,27 +88,26 @@ type MerchantUserDeleteReq struct {
 }
 
 type MerchantUserDeleteReply struct {
-	HttpCode int64  `json:"httpcode"`
-	Message  string `json:"message"`
+	Id string `json:"id"`
 }
 
 type MerchantUserSearchReq struct {
-	Keyword  string `json:"keyword"`
-	Page     int64  `json:"page"`
-	Status   int64  `json:"page"`
-	PageSize int64  `json:"pagesize"`
-	OrderBy  string `json:"orderby"`
+	Keyword   string `json:"keyword"`
+	Status    int64  `json:"page"`
+	Page      int64  `json:"page"`
+	PageSize  int64  `json:"pagesize"`
+	OrderBy   string `json:"orderby"`
+	OrderType int64  `json:"ordertype"`
 }
 
 type MerchantUserSearchReply struct {
 	MechantUsers []MerchantUser `json:"merchantusers"`
 	IsEnd        bool           `json:"isend"`
 	LastVal      int64          `json:"lastval"`
-	HttpCode     int64          `json:"httpcode"`
-	Message      string         `json:"message"`
 }
 
 type MerchantUserLoginReq struct {
 	UserName string `json:"username"`
 	Password string `json:"password"`
+	Type     int64  `json:"type"`
 }

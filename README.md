@@ -3,31 +3,21 @@ mkdir goecom
 cd goecom
 go mod init goecom
 
-model:
-goctl model mysql ddl -src product_brand.sql -dir . -c
-goctl model mysql ddl -src merchant.sql -dir . -c
-goctl model mysql ddl -src merchant_user.sql -dir . -c
+lib model:
+goctl model mysql ddl -src merchant.sql -dir . -c -style goZero
+goctl model mysql ddl -src merchant_user.sql -dir . -c -style goZero
+
+product model:
+goctl model mysql ddl -src product_brand.sql -dir . -c -style goZero
 
 api:
-goctl api go -api product.api -dir .
-goctl api go -api lib.api -dir .
+goctl api go -api product.api -dir . -style goZero
+goctl api go -api lib.api -dir . -style goZero
 
-$ curl -i -X POST \
- http://127.0.0.1:6001/v1/lib/merchant/user/login \
- -H 'Content-Type: application/json' \
- -d '{
-"username":"testing1",
-"password":"123456"
-}'
+#install swagger
+brew tap go-swagger/go-swagger
+brew install go-swagger
+#intsll goctl-swagger
+https://github.com/zeromicro/goctl-swagger
 
-$ curl -i -X POST \
- http://127.0.0.1:6001/v1/lib/merchant/search \
- -H 'Content-Type: application/json' \
- -d '{
-"page":1,
-"lastval":1,
-"keyword":"test",
-"pagesize":1,
-"orderby":"id",
-"status":1
-}'
+goctl api plugin -plugin goctl-swagger="swagger -filename lib.json" -api lib.api -dir . -style goZero

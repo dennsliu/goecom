@@ -3,12 +3,10 @@ package handler
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"goecom/apps/lib/api/internal/logic"
 	"goecom/apps/lib/api/internal/svc"
 	"goecom/apps/lib/api/internal/types"
-	"goecom/pkg/result"
-
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func merchantuserloginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
@@ -21,6 +19,10 @@ func merchantuserloginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 
 		l := logic.NewMerchantuserloginLogic(r.Context(), svcCtx)
 		resp, err := l.Merchantuserlogin(&req)
-		result.HttpResult(r, w, resp, err)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
 	}
 }

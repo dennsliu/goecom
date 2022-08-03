@@ -3,12 +3,10 @@ package handler
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"goecom/apps/lib/api/internal/logic"
 	"goecom/apps/lib/api/internal/svc"
 	"goecom/apps/lib/api/internal/types"
-	"goecom/pkg/result"
-
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func merchantsearchHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
@@ -18,8 +16,13 @@ func merchantsearchHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
+
 		l := logic.NewMerchantsearchLogic(r.Context(), svcCtx)
 		resp, err := l.Merchantsearch(&req)
-		result.HttpResult(r, w, resp, err)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
 	}
 }
