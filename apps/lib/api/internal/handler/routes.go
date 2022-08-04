@@ -14,6 +14,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
+				Path:    "/v1/lib/gettoken",
+				Handler: gettokenHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
 				Path:    "/v1/lib/merchant/add",
 				Handler: merchantaddHandler(serverCtx),
 			},

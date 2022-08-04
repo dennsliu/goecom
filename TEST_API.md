@@ -1,4 +1,11 @@
 $ curl -i -X POST \
+ http://127.0.0.1:6001/v1/lib/gettoken \
+ -H 'Content-Type: application/json' \
+ -d '{
+"id":1
+}'
+
+$ curl -i -X POST \
  http://127.0.0.1:6001/v1/lib/merchant/user/login \
  -H 'Content-Type: application/json' \
  -d '{

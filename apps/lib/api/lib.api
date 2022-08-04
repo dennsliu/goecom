@@ -1,5 +1,11 @@
 syntax = "v1"
 type (
+	GetTokenReq   struct{}
+	GetTokenReply {
+		AccessToken  string `json:"accesstoken"`
+		AccessExpire int64  `json:"accessexpire"`
+		RefreshAfter int64  `json:"refreshafter"`
+	}
 	Merchant {
 		Id        int64  `json:"id"`
 		Name      string `json:"name"`
@@ -99,6 +105,8 @@ type (
 )
 
 service lib-api{
+	@handler gettoken
+	post /v1/lib/gettoken (GetTokenReq) returns (GetTokenReply)
 	//merchant
 	@handler merchantadd
 	post /v1/lib/merchant/add (MerchantAddReq) returns (Merchant)

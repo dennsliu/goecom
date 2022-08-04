@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package lib;
+
+option go_package = "./lib";
+
+message GenerateTokenReq {
+  int64 userId = 1;
+}
+message GenerateTokenResp {
+  string accessToken = 1;
+  int64  accessExpire = 2;
+  int64  refreshAfter = 3;
+  int64  userId = 4;
+}
+message GetMerchantsReq{
+  int64 status = 1;
+  string name = 2;
+  int64 lastId=3;
+  int64 pageSize=4;
+}
+message GetMerchantsReply{
+  repeated GetMerchantReply list = 1;
+}
+message GetMerchantReq{
+  int64 id = 1;
+}
+message GetMerchantReply{
+  int64 id = 1;
+  string name = 2;
+  int64 status = 3;
+  string createdat = 4;
+  string updatedat = 5;
+}
+message GetMerchantUsersReq{
+  int64 status = 1;
+  string username = 2;
+  string email = 3;
+  int64 lastId=4;
+  int64 pageSize=5;
+}
+message GetMerchantUsersReply{
+  repeated GetMerchantUserReply list = 1;
+}
+message GetMerchantUserReq{
+  int64 id = 1;
+}
+message GetMerchantUserReply{
+  int64 id = 1;
+  string nickname = 2;
+  string email = 3;
+  string username = 4;
+  string password = 5;
+  string telephone = 6;
+  string mobliephone = 7;
+  string merchantid = 8;
+  int64 status = 9;
+  string createdat = 10;
+  string updatedat = 11;
+}
+message MerchantUserLoginReq{
+  int64 id = 1;
+}
+message MerchantUserLoginReply{
+  int64 id = 1;
+  string nickname = 2;
+  string email = 3;
+  string username = 4;
+  string password = 5;
+  string telephone = 6;
+  string mobliephone = 7;
+  string merchantid = 8;
+  int64 status = 9;
+  string createdat = 10;
+  string updatedat = 11;
+  string accessToken = 12;
+  int64  accessExpire = 13;
+  int64  refreshAfter = 14;
+}
+message MerchantUserRegisterReq{
+  string nickname = 1;
+  string email = 2;
+  string username = 3;
+  string password = 4;
+  string telephone = 5;
+  string mobliephone = 6;
+  string merchantid = 7;
+  int64 status = 8;
+  string accessToken = 9;
+}
+service lib {
+  rpc generateToken(GenerateTokenReq) returns(GenerateTokenResp);
+  rpc getMerchants(GetMerchantsReq) returns(GetMerchantsReply);
+  rpc getMerchant(GetMerchantReq) returns(GetMerchantReply);
+  rpc getMerchantUsers(GetMerchantUsersReq) returns(GetMerchantUsersReply);
+  rpc getMerchantUser(GetMerchantUserReq) returns(GetMerchantUserReply);
+  rpc merchantUserLogin(MerchantUserLoginReq) returns(MerchantUserLoginReply);
+  rpc merchantUserRegister(MerchantUserRegisterReq) returns(MerchantUserLoginReply);
+}

@@ -1,0 +1,17 @@
+package jwtx
+
+import (
+	"goecom/pkg/ctxdata"
+
+	"github.com/golang-jwt/jwt"
+)
+
+func GetToken(secretKey string, iat, seconds, uid int64) (string, error) {
+	claims := make(jwt.MapClaims)
+	claims["exp"] = iat + seconds
+	claims["iat"] = iat
+	claims[ctxdata.CtxKeyJwtUserId] = uid
+	token := jwt.New(jwt.SigningMethodHS256)
+	token.Claims = claims
+	return token.SignedString([]byte(secretKey))
+}
