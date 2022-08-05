@@ -45,8 +45,8 @@ type (
 		MerchantId sql.NullInt64  `db:"merchant_id"` // MerchantId
 		ParentId   int64          `db:"parent_id"`
 		Code       sql.NullString `db:"code"`
-		CreatedAt  time.Time      `db:"created_at"`
-		UpdatedAt  time.Time      `db:"updated_at"`
+		CreatedAt  string      `db:"created_at"`
+		UpdatedAt  string      `db:"updated_at"`
 	}
 )
 

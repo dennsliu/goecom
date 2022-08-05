@@ -7,6 +7,7 @@ import (
 	"goecom/apps/lib/api/internal/types"
 	"goecom/apps/lib/rpc/lib"
 
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -30,7 +31,8 @@ func (l *GettokenLogic) Gettoken(req *types.GetTokenReq) (*types.GetTokenReply, 
 		UserId: 0,
 	})
 	if err != nil {
-		return nil, err
+		logx.Errorf("get token error: %v", err)
+		return nil, errors.Wrapf(ErrGenerateTokenError, "getJwtToken err userId:%d , err:%v", 0, err)
 	}
 	var resp types.GetTokenReply
 	//_ = copier.Copy(&resp, tokenResp)

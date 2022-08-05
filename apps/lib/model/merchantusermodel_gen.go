@@ -7,7 +7,6 @@ import (
 	"database/sql"
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stores/cache"
@@ -44,16 +43,16 @@ type (
 
 	MerchantUser struct {
 		Id          int64          `db:"id"` // merchant user id
-		Nickname    sql.NullString `db:"nickname"`
+		Nickname    *string `db:"nickname"`
 		Username    string         `db:"username"`
 		Email       string         `db:"email"`
 		Password    string         `db:"password"`
-		Telephone   sql.NullString `db:"telephone"`
-		Mobliephone sql.NullString `db:"mobliephone"`
+		Telephone   *string `db:"telephone"`
+		Mobliephone *string `db:"mobliephone"`
 		MerchantId  int64          `db:"merchant_id"` // merchantuser
 		Status      int64          `db:"status"`
-		CreatedAt   time.Time      `db:"created_at"`
-		UpdatedAt   time.Time      `db:"updated_at"`
+		CreatedAt   string      `db:"created_at"`
+		UpdatedAt   string      `db:"updated_at"`
 	}
 )
 

@@ -7,7 +7,6 @@ import (
 	"database/sql"
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stores/cache"
@@ -42,8 +41,8 @@ type (
 		Id        int64     `db:"id"`     // merchant id
 		Name      string    `db:"name"`   // merchant name
 		Status    int64     `db:"status"` // merchant status(0 active,-1 inactive)
-		CreatedAt time.Time `db:"created_at"`
-		UpdatedAt time.Time `db:"updated_at"`
+		CreatedAt string `db:"created_at"`
+		UpdatedAt string `db:"updated_at"`
 	}
 )
 

@@ -58,12 +58,12 @@ type MerchantSearchReply struct {
 
 type MerchantUser struct {
 	Id          int64  `json:"id"`
-	NickName    string `json:"nickname"`
+	NickName    *string `json:"nickname"`
 	Email       string `json:"email"`
 	UserName    string `json:"username"`
 	Password    string `json:"password"`
-	Telephone   string `json:"telephone"`
-	Mobliephone string `json:"mobliephone"`
+	Telephone   *string `json:"telephone"`
+	Mobliephone *string `json:"mobliephone"`
 	MerchantId  int64  `json:"merchantid"`
 	Status      int64  `json:"status"`
 	CreatedAt   string `json:"createdat"`
@@ -71,13 +71,12 @@ type MerchantUser struct {
 }
 
 type MerchantUserAddReq struct {
-	Id          int64  `json:"id"`
-	NickName    string `json:"nickname"`
+	NickName    *string `json:"nickname"`
 	UserName    string `json:"username"`
 	Email       string `json:"email"`
 	Password    string `json:"password"`
-	Telephone   string `json:"telephone"`
-	Mobliephone string `json:"mobliephone"`
+	Telephone   *string `json:"telephone"`
+	Mobliephone *string `json:"mobliephone"`
 	MerchantId  int64  `json:"merchantid"`
 }
 
@@ -119,4 +118,21 @@ type MerchantUserLoginReq struct {
 	UserName string `json:"username"`
 	Password string `json:"password"`
 	Type     int64  `json:"type"`
+}
+
+type MerchantUserLoginReply struct {
+	Id           int64  `json:"id"`
+	NickName     *string `json:"nickname"`
+	Email        string `json:"email"`
+	UserName     string `json:"username"`
+	Password     string `json:"password"`
+	Telephone    *string `json:"telephone"`
+	Mobliephone  *string `json:"mobliephone"`
+	MerchantId   int64  `json:"merchantid"`
+	Status       int64  `json:"status"`
+	CreatedAt    string `json:"createdat"`
+	UpdatedAt    string `json:"updatedat"`
+	AccessToken  string `json:"accesstoken"`
+	AccessExpire int64  `json:"accessexpire"`
+	RefreshAfter int64  `json:"refreshafter"`
 }
