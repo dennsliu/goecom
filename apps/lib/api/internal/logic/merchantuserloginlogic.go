@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"goecom/apps/lib/api/internal/svc"
@@ -38,6 +39,7 @@ func NewMerchantuserloginLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 func (l *MerchantuserloginLogic) Merchantuserlogin(req *types.MerchantUserLoginReq) (*types.MerchantUserLoginReply, error) {
 	// todo: add your logic here and delete this line
+	fmt.Print("--------------777-------------")
 	if len(strings.TrimSpace(req.UserName)) == 0 || len(strings.TrimSpace(req.Password)) == 0 {
 		return nil, errors.Wrapf(ErrUsernamePwdNullError, "Merchantuserlogin err null username:%s , password:%s, type:%s", req.UserName, req.Password, req.Type)
 	}
@@ -64,6 +66,8 @@ func (l *MerchantuserloginLogic) Merchantuserlogin(req *types.MerchantUserLoginR
 			logx.Errorf("merchant user login error: %v", tokenEmailerr)
 			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.UserName, tokenEmailerr)
 		}
+		resp.Code = 200
+		resp.Msg = "login successfully"
 		resp.Id = userUsernameEmail.Id
 		resp.NickName = userUsernameEmail.Nickname
 		resp.UserName = userUsernameEmail.Username
@@ -96,6 +100,9 @@ func (l *MerchantuserloginLogic) Merchantuserlogin(req *types.MerchantUserLoginR
 			logx.Errorf("merchant user login error: %v", tokenUsernameerr)
 			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.UserName, tokenUsernameerr)
 		}
+		fmt.Print("--------------99999-------------")
+		resp.Code = 200
+		resp.Msg = "login successfully"
 		resp.Id = userUsernameUsername.Id
 		resp.NickName = userUsernameUsername.Nickname
 		resp.UserName = userUsernameUsername.Username

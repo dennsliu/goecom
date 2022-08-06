@@ -4,6 +4,7 @@
     "title": "",
     "version": ""
   },
+  "host": "127.0.0.1:6001",
   "schemes": [
     "http",
     "https"
@@ -14,15 +15,34 @@
   "produces": [
     "application/json"
   ],
-  "servers": [
-    {
-      "url": "http://localhost:6001/"
-    },
-    {
-      "url": "https://localhost:6001/"
-    }
-  ],
   "paths": {
+    "/v1/lib/gettoken": {
+      "post": {
+        "operationId": "gettoken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTokenReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetTokenReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "lib-api"
+        ]
+      }
+    },
     "/v1/lib/merchant/add": {
       "post": {
         "operationId": "merchantadd",
@@ -30,7 +50,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Merchant"
+              "$ref": "#/definitions/MerchantReply"
             }
           }
         },
@@ -84,7 +104,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Merchant"
+              "$ref": "#/definitions/MerchantReply"
             }
           }
         },
@@ -138,7 +158,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Merchant"
+              "$ref": "#/definitions/MerchantReply"
             }
           }
         },
@@ -165,7 +185,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MerchantUser"
+              "$ref": "#/definitions/MerchantUserReply"
             }
           }
         },
@@ -219,7 +239,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MerchantUser"
+              "$ref": "#/definitions/MerchantUserReply"
             }
           }
         },
@@ -246,7 +266,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Merchant"
+              "$ref": "#/definitions/MerchantUserLoginReply"
             }
           }
         },
@@ -300,7 +320,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MerchantUser"
+              "$ref": "#/definitions/MerchantUserReply"
             }
           }
         },
@@ -322,6 +342,41 @@
     }
   },
   "definitions": {
+    "GetTokenReply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "accesstoken": {
+          "type": "string"
+        },
+        "accessexpire": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "refreshafter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetTokenReply",
+      "required": [
+        "code",
+        "msg",
+        "accesstoken",
+        "accessexpire",
+        "refreshafter"
+      ]
+    },
+    "GetTokenReq": {
+      "type": "object",
+      "title": "GetTokenReq"
+    },
     "Merchant": {
       "type": "object",
       "properties": {
@@ -330,8 +385,7 @@
           "format": "int64"
         },
         "name": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "status": {
           "type": "integer",
@@ -357,12 +411,12 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "status": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "1"
         }
       },
       "title": "MerchantAddReq",
@@ -374,12 +428,21 @@
     "MerchantDeleteReply": {
       "type": "object",
       "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
         "id": {
           "type": "string"
         }
       },
       "title": "MerchantDeleteReply",
       "required": [
+        "code",
+        "msg",
         "id"
       ]
     },
@@ -408,9 +471,55 @@
         "id"
       ]
     },
+    "MerchantReply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdat": {
+          "type": "string"
+        },
+        "updatedat": {
+          "type": "string"
+        }
+      },
+      "title": "MerchantReply",
+      "required": [
+        "code",
+        "msg",
+        "id",
+        "name",
+        "status",
+        "createdat",
+        "updatedat"
+      ]
+    },
     "MerchantSearchReply": {
       "type": "object",
       "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
         "merchants": {
           "type": "array",
           "items": {
@@ -428,6 +537,8 @@
       },
       "title": "MerchantSearchReply",
       "required": [
+        "code",
+        "msg",
         "merchants",
         "isend",
         "lastval"
@@ -437,26 +548,32 @@
       "type": "object",
       "properties": {
         "keyword": {
-          "type": "string"
+          "type": "string",
+          "default": "''"
         },
         "page": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "1"
         },
         "status": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "1"
         },
         "pagesize": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "1"
         },
         "orderby": {
-          "type": "string"
+          "type": "string",
+          "default": "id"
         },
         "ordertype": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "desc"
         }
       },
       "title": "MerchantSearchReq",
@@ -477,12 +594,12 @@
           "format": "int64"
         },
         "name": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "status": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "1"
         }
       },
       "title": "MerchantUpdateReq",
@@ -550,12 +667,9 @@
     "MerchantUserAddReq": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
         "nickname": {
-          "type": "string"
+          "type": "string",
+          "default": "''"
         },
         "username": {
           "type": "string"
@@ -567,10 +681,12 @@
           "type": "string"
         },
         "telephone": {
-          "type": "string"
+          "type": "string",
+          "default": "''"
         },
         "mobliephone": {
-          "type": "string"
+          "type": "string",
+          "default": "''"
         },
         "merchantid": {
           "type": "integer",
@@ -579,7 +695,6 @@
       },
       "title": "MerchantUserAddReq",
       "required": [
-        "id",
         "nickname",
         "username",
         "email",
@@ -592,12 +707,21 @@
     "MerchantUserDeleteReply": {
       "type": "object",
       "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
         "id": {
           "type": "string"
         }
       },
       "title": "MerchantUserDeleteReply",
       "required": [
+        "code",
+        "msg",
         "id"
       ]
     },
@@ -626,6 +750,84 @@
         "id"
       ]
     },
+    "MerchantUserLoginReply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "mobliephone": {
+          "type": "string"
+        },
+        "merchantid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdat": {
+          "type": "string"
+        },
+        "updatedat": {
+          "type": "string"
+        },
+        "accesstoken": {
+          "type": "string"
+        },
+        "accessexpire": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "refreshafter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MerchantUserLoginReply",
+      "required": [
+        "code",
+        "msg",
+        "id",
+        "nickname",
+        "email",
+        "username",
+        "password",
+        "telephone",
+        "mobliephone",
+        "merchantid",
+        "status",
+        "createdat",
+        "updatedat",
+        "accesstoken",
+        "accessexpire",
+        "refreshafter"
+      ]
+    },
     "MerchantUserLoginReq": {
       "type": "object",
       "properties": {
@@ -637,7 +839,8 @@
         },
         "type": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "0"
         }
       },
       "title": "MerchantUserLoginReq",
@@ -647,9 +850,80 @@
         "type"
       ]
     },
+    "MerchantUserReply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "mobliephone": {
+          "type": "string"
+        },
+        "merchantid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdat": {
+          "type": "string"
+        },
+        "updatedat": {
+          "type": "string"
+        }
+      },
+      "title": "MerchantUserReply",
+      "required": [
+        "code",
+        "msg",
+        "id",
+        "nickname",
+        "email",
+        "username",
+        "password",
+        "telephone",
+        "mobliephone",
+        "merchantid",
+        "status",
+        "createdat",
+        "updatedat"
+      ]
+    },
     "MerchantUserSearchReply": {
       "type": "object",
       "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
         "merchantusers": {
           "type": "array",
           "items": {
@@ -667,6 +941,8 @@
       },
       "title": "MerchantUserSearchReply",
       "required": [
+        "code",
+        "msg",
         "merchantusers",
         "isend",
         "lastval"
@@ -676,26 +952,32 @@
       "type": "object",
       "properties": {
         "keyword": {
-          "type": "string"
+          "type": "string",
+          "default": "''"
         },
         "status": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "1"
         },
         "page": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "1"
         },
         "pagesize": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "10"
         },
         "orderby": {
-          "type": "string"
+          "type": "string",
+          "default": "id"
         },
         "ordertype": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "default": "desc"
         }
       },
       "title": "MerchantUserSearchReq",
@@ -712,13 +994,16 @@
       "type": "object",
       "properties": {
         "nickname": {
-          "type": "string"
+          "type": "string",
+          "default": "''"
         },
         "telephone": {
-          "type": "string"
+          "type": "string",
+          "default": "''"
         },
         "mobliephone": {
-          "type": "string"
+          "type": "string",
+          "default": "''"
         },
         "merchantid": {
           "type": "integer",
@@ -731,6 +1016,23 @@
         "telephone",
         "mobliephone",
         "merchantid"
+      ]
+    },
+    "Reply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      },
+      "title": "Reply",
+      "required": [
+        "code",
+        "msg"
       ]
     }
   },

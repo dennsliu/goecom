@@ -234,6 +234,15 @@ services:
       SWAGGER_JSON: /usr/share/nginx/html/config/lib.json
      # API_URL: "localhost:6001"
     #  URLS: "[{url:'/usr/share/nginx/html/config/lib.json',name:'lib'}]"
+  swaggereditor:
+    image: swaggerapi/swagger-editor
+    container_name: "swaggereditor"
+    ports:
+      - "807:8080"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.17
+    restart: always  
 # 网络配置
 networks:
   mallv1:

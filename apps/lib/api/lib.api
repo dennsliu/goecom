@@ -1,7 +1,13 @@
 syntax = "v1"
 type (
+	Reply {
+		Code int64  `json:"code"`
+		Msg  string `json:"msg"`
+	}
 	GetTokenReq   struct{}
 	GetTokenReply {
+		Code         int64  `json:"code"`
+		Msg          string `json:"msg"`
 		AccessToken  string `json:"accesstoken"`
 		AccessExpire int64  `json:"accessexpire"`
 		RefreshAfter int64  `json:"refreshafter"`
@@ -13,14 +19,23 @@ type (
 		CreatedAt string `json:"createdat"`
 		UpdatedAt string `json:"updatedat"`
 	}
+	MerchantReply {
+		Code      int64  `json:"code"`
+		Msg       string `json:"msg"`
+		Id        int64  `json:"id"`
+		Name      string `json:"name"`
+		Status    int64  `json:"status"`
+		CreatedAt string `json:"createdat"`
+		UpdatedAt string `json:"updatedat"`
+	}
 	MerchantAddReq {
 		Name   string `json:"name"`
-		Status int64  `json:"status"`
+		Status int64  `json:"status,optional,default=1"`
 	}
 	MerchantUpdateReq {
 		Id     int64  `json:"id"`
 		Name   string `json:"name"`
-		Status int64  `json:"status"`
+		Status int64  `json:"status,optional,default=1"`
 	}
 	MerchantGetReq {
 		Id int64 `json:"id"`
@@ -30,17 +45,21 @@ type (
 		Id string `json:"id"`
 	}
 	MerchantDeleteReply {
-		Id string `json:"id"`
+		Code int64  `json:"code"`
+		Msg  string `json:"msg"`
+		Id   string `json:"id"`
 	}
 	MerchantSearchReq {
-		Keyword   string `json:"keyword"`
-		Page      int64  `json:"page"`
-		Status    int64  `json:"status"`
-		PageSize  int64  `json:"pagesize"`
-		OrderBy   string `json:"orderby"`
-		OrderType int64  `json:"ordertype"`
+		Keyword   string `json:"keyword,optional,default=''"`
+		Page      int64  `json:"page,optional,default=1"`
+		Status    int64  `json:"status,optional,default=1"`
+		PageSize  int64  `json:"pagesize,optional,default=1"`
+		OrderBy   string `json:"orderby,optional,default=id"`
+		OrderType string `json:"ordertype,optional,default=desc"`
 	}
 	MerchantSearchReply {
+		Code     int64      `json:"code"`
+		Msg      string     `json:"msg"`
 		Mechants []Merchant `json:"merchants"`
 		IsEnd    bool       `json:"isend"`
 		LastVal  int64      `json:"lastval"`
@@ -58,20 +77,34 @@ type (
 		CreatedAt   string `json:"createdat"`
 		UpdatedAt   string `json:"updatedat"`
 	}
-	MerchantUserAddReq {
+	MerchantUserReply {
+		Code        int64  `json:"code"`
+		Msg         string `json:"msg"`
 		Id          int64  `json:"id"`
 		NickName    string `json:"nickname"`
-		UserName    string `json:"username"`
 		Email       string `json:"email"`
+		UserName    string `json:"username"`
 		Password    string `json:"password"`
 		Telephone   string `json:"telephone"`
 		Mobliephone string `json:"mobliephone"`
 		MerchantId  int64  `json:"merchantid"`
+		Status      int64  `json:"status"`
+		CreatedAt   string `json:"createdat"`
+		UpdatedAt   string `json:"updatedat"`
+	}
+	MerchantUserAddReq {
+		NickName    string `json:"nickname,optional,default=''"`
+		UserName    string `json:"username"`
+		Email       string `json:"email"`
+		Password    string `json:"password"`
+		Telephone   string `json:"telephone,optional,default=''"`
+		Mobliephone string `json:"mobliephone,optional,default=''"`
+		MerchantId  int64  `json:"merchantid"`
 	}
 	MerchantUserUpdateReq {
-		NickName    string `json:"nickname"`
-		Telephone   string `json:"telephone"`
-		Mobliephone string `json:"mobliephone"`
+		NickName    string `json:"nickname,optional,default=''"`
+		Telephone   string `json:"telephone,optional,default=''"`
+		Mobliephone string `json:"mobliephone,optional,default=''"`
 		MerchantId  int64  `json:"merchantid"`
 	}
 	MerchantUserGetReq {
@@ -82,17 +115,21 @@ type (
 		Id string `json:"id"`
 	}
 	MerchantUserDeleteReply {
-		Id string `json:"id"`
+		Code int64  `json:"code"`
+		Msg  string `json:"msg"`
+		Id   string `json:"id"`
 	}
 	MerchantUserSearchReq {
-		Keyword   string `json:"keyword"`
-		Status    int64  `json:"status"`
-		Page      int64  `json:"page"`
-		PageSize  int64  `json:"pagesize"`
-		OrderBy   string `json:"orderby"`
-		OrderType int64  `json:"ordertype"`
+		Keyword   string `json:"keyword,optional,default=''"`
+		Status    int64  `json:"status,optional,default=1"`
+		Page      int64  `json:"page,optional,default=1"`
+		PageSize  int64  `json:"pagesize,optional,default=10"`
+		OrderBy   string `json:"orderby,optional,default=id"`
+		OrderType string `json:"ordertype,optional,default=desc"`
 	}
 	MerchantUserSearchReply {
+		Code         int64          `json:"code"`
+		Msg          string         `json:"msg"`
 		MechantUsers []MerchantUser `json:"merchantusers"`
 		IsEnd        bool           `json:"isend"`
 		LastVal      int64          `json:"lastval"`
@@ -100,9 +137,11 @@ type (
 	MerchantUserLoginReq {
 		UserName string `json:"username"`
 		Password string `json:"password"`
-		Type     int64  `json:"type"`
+		Type     int64  `json:"type,optional,default=0"`
 	}
 	MerchantUserLoginReply {
+		Code         int64  `json:"code"`
+		Msg          string `json:"msg"`
 		Id           int64  `json:"id"`
 		NickName     string `json:"nickname"`
 		Email        string `json:"email"`
@@ -125,22 +164,22 @@ service lib-api{
 	post /v1/lib/gettoken (GetTokenReq) returns (GetTokenReply)
 	//merchant
 	@handler merchantadd
-	post /v1/lib/merchant/add (MerchantAddReq) returns (Merchant)
+	post /v1/lib/merchant/add (MerchantAddReq) returns (MerchantReply)
 	@handler merchantupdate
-	post /v1/lib/merchant/update (MerchantUpdateReq) returns (Merchant)
+	post /v1/lib/merchant/update (MerchantUpdateReq) returns (MerchantReply)
 	@handler merchantget
-	post /v1/lib/merchant/get (MerchantGetReq) returns (Merchant)
+	post /v1/lib/merchant/get (MerchantGetReq) returns (MerchantReply)
 	@handler merchantdelete
 	post /v1/lib/merchant/delete (MerchantDeleteReq) returns (MerchantDeleteReply)
 	@handler merchantsearch
 	post /v1/lib/merchant/search (MerchantSearchReq) returns (MerchantSearchReply)
 	//merchant user
 	@handler merchantuseradd
-	post /v1/lib/merchant/user/add (MerchantUserAddReq) returns (MerchantUser)
+	post /v1/lib/merchant/user/add (MerchantUserAddReq) returns (MerchantUserReply)
 	@handler merchantuserupdate
-	post /v1/lib/merchant/user/update (MerchantUserUpdateReq) returns (MerchantUser)
+	post /v1/lib/merchant/user/update (MerchantUserUpdateReq) returns (MerchantUserReply)
 	@handler merchantuserget
-	post /v1/lib/merchant/user/get (MerchantUserGetReq) returns (MerchantUser)
+	post /v1/lib/merchant/user/get (MerchantUserGetReq) returns (MerchantUserReply)
 	@handler merchantuserdelete
 	post /v1/lib/merchant/user/delete (MerchantUserDeleteReq) returns (MerchantUserDeleteReply)
 	@handler merchantusersearch

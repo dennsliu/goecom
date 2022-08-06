@@ -20,6 +20,6 @@ brew install go-swagger
 #intsll goctl-swagger
 https://github.com/zeromicro/goctl-swagger
 goctl api plugin -plugin goctl-swagger="swagger -filename lib.json" -api lib.api -dir . -style goZero #生成 Swagger json 文件
-
+goctl api plugin -plugin goctl-swagger="swagger -filename lib.json -host 127.0.0.1:6001" -api lib.api -dir . #生成 Swagger json 文件 指定 host
 生成 rpc 代码：
 goctl rpc protoc lib.proto --go_out=./types --go-grpc_out=./types --zrpc_out=. -style goZero

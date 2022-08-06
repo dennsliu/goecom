@@ -42,17 +42,17 @@ type (
 	}
 
 	MerchantUser struct {
-		Id          int64          `db:"id"` // merchant user id
-		Nickname    *string `db:"nickname"`
-		Username    string         `db:"username"`
-		Email       string         `db:"email"`
-		Password    string         `db:"password"`
-		Telephone   *string `db:"telephone"`
-		Mobliephone *string `db:"mobliephone"`
-		MerchantId  int64          `db:"merchant_id"` // merchantuser
-		Status      int64          `db:"status"`
-		CreatedAt   string      `db:"created_at"`
-		UpdatedAt   string      `db:"updated_at"`
+		Id          int64     `db:"id"` // merchant user id
+		Nickname    string    `db:"nickname"`
+		Username    string    `db:"username"`
+		Email       string    `db:"email"`
+		Password    string    `db:"password"`
+		Telephone   string    `db:"telephone"`
+		Mobliephone string    `db:"mobliephone"`
+		MerchantId  int64     `db:"merchant_id"` // merchantuser
+		Status      int64     `db:"status"`
+		CreatedAt   string`db:"created_at"`
+		UpdatedAt   string `db:"updated_at"`
 	}
 )
 
