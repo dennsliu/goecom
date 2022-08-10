@@ -6,6 +6,10 @@ type Reply struct {
 	Msg  string `json:"msg"`
 }
 
+type Total struct {
+	Total int64 `json:"total"`
+}
+
 type GetTokenReq struct {
 }
 
@@ -65,7 +69,7 @@ type MerchantSearchReq struct {
 	Page      int64  `json:"page,optional,default=1"`
 	Status    int64  `json:"status,optional,default=1"`
 	PageSize  int64  `json:"pagesize,optional,default=1"`
-	OrderBy   string `json:"orderby,optional,default=id"`
+	LastId    int64  `json:"lastid,optional,default=0"`
 	OrderType string `json:"ordertype,optional,default=desc"`
 }
 
@@ -75,6 +79,7 @@ type MerchantSearchReply struct {
 	Mechants []Merchant `json:"merchants"`
 	IsEnd    bool       `json:"isend"`
 	LastVal  int64      `json:"lastval"`
+	Total    int64      `json:"total"`
 }
 
 type MerchantUser struct {

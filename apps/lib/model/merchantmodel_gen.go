@@ -44,6 +44,9 @@ type (
 		CreatedAt string `db:"created_at"`
 		UpdatedAt string `db:"updated_at"`
 	}
+	Total struct {
+		Total        int64     `db:"total"`
+	}
 )
 
 func newMerchantModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultMerchantModel {

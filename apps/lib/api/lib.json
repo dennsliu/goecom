@@ -566,13 +566,13 @@
           "format": "int64",
           "default": "1"
         },
-        "orderby": {
-          "type": "string",
-          "default": "id"
-        },
-        "ordertype": {
+        "lastid": {
           "type": "integer",
           "format": "int64",
+          "default": "0"
+        },
+        "ordertype": {
+          "type": "string",
           "default": "desc"
         }
       },
@@ -582,7 +582,7 @@
         "page",
         "status",
         "pagesize",
-        "orderby",
+        "lastid",
         "ordertype"
       ]
     },
@@ -975,8 +975,7 @@
           "default": "id"
         },
         "ordertype": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "default": "desc"
         }
       },

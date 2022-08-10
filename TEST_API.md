@@ -19,11 +19,11 @@ $ curl -i -X POST \
  -H 'Content-Type: application/json' \
  -d '{
 "page":1,
-"lastval":1,
-"keyword":"test",
-"pagesize":1,
-"orderby":"id",
-"status":1
+"lastid":0,
+"keyword":"te",
+"pagesize":3,
+"status":1,
+"ordertype":"desc"
 }'
 $ curl -i -X POST \
  http://127.0.0.1:6001/v1/lib/merchant/add \
