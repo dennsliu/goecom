@@ -74,12 +74,14 @@ type MerchantSearchReq struct {
 }
 
 type MerchantSearchReply struct {
-	Code     int64      `json:"code"`
-	Msg      string     `json:"msg"`
-	Mechants []Merchant `json:"merchants"`
-	IsEnd    bool       `json:"isend"`
-	LastVal  int64      `json:"lastval"`
-	Total    int64      `json:"total"`
+	Code        int64      `json:"code"`
+	Msg         string     `json:"msg"`
+	Mechants    []Merchant `json:"merchants"`
+	IsEnd       bool       `json:"isend"`
+	LastVal     int64      `json:"lastval"`
+	Total       int64      `json:"total"`
+	CurrentPage int64      `json:"currentpage"`
+	TotalPage   int64      `json:"totalpage"`
 }
 
 type MerchantUser struct {
@@ -148,7 +150,7 @@ type MerchantUserSearchReq struct {
 	Status    int64  `json:"status,optional,default=1"`
 	Page      int64  `json:"page,optional,default=1"`
 	PageSize  int64  `json:"pagesize,optional,default=10"`
-	OrderBy   string `json:"orderby,optional,default=id"`
+	LastId    int64  `json:"lastid,optional,default=0"`
 	OrderType string `json:"ordertype,optional,default=desc"`
 }
 
@@ -158,6 +160,9 @@ type MerchantUserSearchReply struct {
 	MechantUsers []MerchantUser `json:"merchantusers"`
 	IsEnd        bool           `json:"isend"`
 	LastVal      int64          `json:"lastval"`
+	Total        int64          `json:"total"`
+	CurrentPage  int64          `json:"currentpage"`
+	TotalPage    int64          `json:"totalpage"`
 }
 
 type MerchantUserLoginReq struct {

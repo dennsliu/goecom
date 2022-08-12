@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"fmt"
+	"math"
 
 	"goecom/apps/lib/api/internal/svc"
 	"goecom/apps/lib/api/internal/types"
@@ -34,7 +35,13 @@ func (l *MerchantsearchLogic) Merchantsearch(req *types.MerchantSearchReq) (resp
 	if len(req.Keyword) > 0 {
 		resultData.Where("name like ?", "%"+req.Keyword+"%")
 	}
-	resultData.Limit(int(req.PageSize)).Offset(int(req.LastId)).Scan(&merchants).Limit(-1).Offset(-1).Count(&count)
+	var currentPage int64 = 1
+	if req.Page > 0 {
+		currentPage = req.Page
+	}
+	resultData.Limit(int(req.PageSize)).Offset(((int(currentPage) - 1) * int(req.PageSize)))
+
+	resultData.Scan(&merchants).Limit(-1).Offset(-1).Count(&count)
 	err = resultData.Error
 	fmt.Printf("------------result------count:%d", count)
 	if err != nil {
@@ -61,5 +68,7 @@ func (l *MerchantsearchLogic) Merchantsearch(req *types.MerchantSearchReq) (resp
 	}
 	rsp.LastVal = (merchants)[size-1].Id
 	rsp.Total = count
+	rsp.CurrentPage = currentPage
+	rsp.TotalPage = int64(math.Ceil(float64(count) / float64(req.PageSize)))
 	return &rsp, nil
 }

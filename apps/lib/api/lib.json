@@ -533,6 +533,18 @@
         "lastval": {
           "type": "integer",
           "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "currentpage": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalpage": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "MerchantSearchReply",
@@ -541,7 +553,10 @@
         "msg",
         "merchants",
         "isend",
-        "lastval"
+        "lastval",
+        "total",
+        "currentpage",
+        "totalpage"
       ]
     },
     "MerchantSearchReq": {
@@ -937,6 +952,18 @@
         "lastval": {
           "type": "integer",
           "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "currentpage": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalpage": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "MerchantUserSearchReply",
@@ -945,7 +972,10 @@
         "msg",
         "merchantusers",
         "isend",
-        "lastval"
+        "lastval",
+        "total",
+        "currentpage",
+        "totalpage"
       ]
     },
     "MerchantUserSearchReq": {
@@ -970,9 +1000,10 @@
           "format": "int64",
           "default": "10"
         },
-        "orderby": {
-          "type": "string",
-          "default": "id"
+        "lastid": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0"
         },
         "ordertype": {
           "type": "string",
@@ -985,7 +1016,7 @@
         "status",
         "page",
         "pagesize",
-        "orderby",
+        "lastid",
         "ordertype"
       ]
     },
@@ -1032,6 +1063,19 @@
       "required": [
         "code",
         "msg"
+      ]
+    },
+    "Total": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Total",
+      "required": [
+        "total"
       ]
     }
   },
