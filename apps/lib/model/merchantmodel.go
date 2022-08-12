@@ -85,7 +85,8 @@ func (m *defaultMerchantModel) FindByKeywordCount(ctx context.Context, keyword s
 		query := fmt.Sprintf("select %s from %s where name like %s and status=%d", "count(id) as total", m.table, "'%"+keyword+"%'", status)
 		err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 		fmt.Println(err)
-		fmt.Println(resp)
+		fmt.Println(&resp)
+		fmt.Printf("------------FindByKeywordCount------resp:%d", resp)
 		switch err {
 		case nil:
 			return resp, nil
@@ -97,7 +98,7 @@ func (m *defaultMerchantModel) FindByKeywordCount(ctx context.Context, keyword s
 		query := fmt.Sprintf("select %s from %s where status=%d", "count(id) as total", m.table, status)
 		err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 		fmt.Println(err)
-		fmt.Println(resp)
+		fmt.Println(&resp)
 		fmt.Printf("------------FindByKeywordCount------resp:%d", resp)
 		switch err {
 		case nil:

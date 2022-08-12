@@ -48,7 +48,9 @@ type (
 		Total        int64     `db:"total"`
 	}
 )
-
+func (Merchant) TableName() string {
+    return "merchant"
+}
 func newMerchantModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultMerchantModel {
 	return &defaultMerchantModel{
 		CachedConn: sqlc.NewConn(conn, c),
