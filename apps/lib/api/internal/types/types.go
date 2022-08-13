@@ -55,13 +55,13 @@ type MerchantGetReq struct {
 }
 
 type MerchantDeleteReq struct {
-	Id string `json:"id"`
+	Id int64 `json:"id"`
 }
 
 type MerchantDeleteReply struct {
 	Code int64  `json:"code"`
 	Msg  string `json:"msg"`
-	Id   string `json:"id"`
+	Id   int64  `json:"id"`
 }
 
 type MerchantSearchReq struct {
@@ -136,13 +136,13 @@ type MerchantUserGetReq struct {
 }
 
 type MerchantUserDeleteReq struct {
-	Id string `json:"id"`
+	Id int64 `json:"id"`
 }
 
 type MerchantUserDeleteReply struct {
 	Code int64  `json:"code"`
 	Msg  string `json:"msg"`
-	Id   string `json:"id"`
+	Id   int64  `json:"id"`
 }
 
 type MerchantUserSearchReq struct {

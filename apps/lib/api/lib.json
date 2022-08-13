@@ -436,7 +436,8 @@
           "type": "string"
         },
         "id": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "MerchantDeleteReply",
@@ -450,7 +451,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "MerchantDeleteReq",
@@ -730,7 +732,8 @@
           "type": "string"
         },
         "id": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "MerchantUserDeleteReply",
@@ -744,7 +747,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "MerchantUserDeleteReq",

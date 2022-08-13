@@ -45,12 +45,12 @@ type (
 	}
 
 	MerchantDeleteReq {
-		Id string `json:"id"`
+		Id int64 `json:"id"`
 	}
 	MerchantDeleteReply {
 		Code int64  `json:"code"`
 		Msg  string `json:"msg"`
-		Id   string `json:"id"`
+		Id   int64  `json:"id"`
 	}
 	MerchantSearchReq {
 		Keyword   string `json:"keyword,optional,default=''"`
@@ -118,12 +118,12 @@ type (
 	}
 
 	MerchantUserDeleteReq {
-		Id string `json:"id"`
+		Id int64 `json:"id"`
 	}
 	MerchantUserDeleteReply {
 		Code int64  `json:"code"`
 		Msg  string `json:"msg"`
-		Id   string `json:"id"`
+		Id   int64  `json:"id"`
 	}
 	MerchantUserSearchReq {
 		Keyword   string `json:"keyword,optional,default=''"`
