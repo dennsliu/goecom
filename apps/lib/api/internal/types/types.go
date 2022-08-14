@@ -191,3 +191,81 @@ type MerchantUserLoginReply struct {
 	AccessExpire int64  `json:"accessexpire"`
 	RefreshAfter int64  `json:"refreshafter"`
 }
+
+type Store struct {
+	Id         int64  `json:"id"`
+	Merchantid int64  `json:"merchantid"`
+	Order      int64  `json:"order"`
+	Status     int64  `json:"status"`
+	CreatedAt  string `json:"createdat"`
+	UpdatedAt  string `json:"updatedat"`
+}
+
+type StoreLaguage struct {
+	Storeid     int64  `json:"id,optional,default=''"`
+	Name        string `json:"name,optional,default=''"`
+	Keyword     string `json:"keyword,optional,default=''"`
+	Description string `json:"description,optional,default=''"`
+	Laguageid   int64  `json:"laguageid"`
+	CreatedAt   string `json:"createdat"`
+	UpdatedAt   string `json:"updatedat"`
+}
+
+type StoreReply struct {
+	Code       int64  `json:"code"`
+	Msg        string `json:"msg"`
+	Id         int64  `json:"id"`
+	Merchantid int64  `json:"merchantid"`
+	Order      int64  `json:"order"`
+	Status     int64  `json:"status"`
+	CreatedAt  string `json:"createdat"`
+	UpdatedAt  string `json:"updatedat"`
+}
+
+type StoreAddReq struct {
+	Merchantid   int64          `json:"merchantid"`
+	Order        int64          `json:"order"`
+	Status       int64          `json:"status,optional,default=1"`
+	StoreLaguage []StoreLaguage `json:"storeLaguage"`
+}
+
+type StoreUpdateReq struct {
+	Id           int64          `json:"id"`
+	Order        int64          `json:"order,optional,default=0"`
+	Status       int64          `json:"status,optional,default=1"`
+	StoreLaguage []StoreLaguage `json:"storeLaguage"`
+}
+
+type StoreGetReq struct {
+	Id int64 `json:"id"`
+}
+
+type StoreDeleteReq struct {
+	Id int64 `json:"id"`
+}
+
+type StoreDeleteReply struct {
+	Code int64  `json:"code"`
+	Msg  string `json:"msg"`
+	Id   int64  `json:"id"`
+}
+
+type StoreSearchReq struct {
+	Keyword   string `json:"keyword,optional,default=''"`
+	Page      int64  `json:"page,optional,default=1"`
+	Status    int64  `json:"status,optional,default=1"`
+	PageSize  int64  `json:"pagesize,optional,default=1"`
+	LastId    int64  `json:"lastid,optional,default=0"`
+	OrderType string `json:"ordertype,optional,default=desc"`
+}
+
+type StoreSearchReply struct {
+	Code        int64   `json:"code"`
+	Msg         string  `json:"msg"`
+	Stores      []Store `json:"stores"`
+	IsEnd       bool    `json:"isend"`
+	LastVal     int64   `json:"lastval"`
+	Total       int64   `json:"total"`
+	CurrentPage int64   `json:"currentpage"`
+	TotalPage   int64   `json:"totalpage"`
+}

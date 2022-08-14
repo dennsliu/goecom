@@ -18,6 +18,7 @@ type ServiceContext struct {
 	LibRpc            lib.Lib
 	MerchantModel     model.MerchantModel
 	MerchantUserModel model.MerchantUserModel
+	StoreModel        model.StoreModel
 	Gorm              *gorm.DB
 }
 
@@ -28,6 +29,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		LibRpc:            lib.NewLib(zrpc.MustNewClient(c.LibRpc)),
 		MerchantModel:     model.NewMerchantModel(sqlConn, c.Cache),
 		MerchantUserModel: model.NewMerchantUserModel(sqlConn, c.Cache),
+		StoreModel:        model.NewStoreModel(sqlConn, c.Cache),
 		Gorm:              xgorm.NewGorm(c.DB.DataSource),
 	}
 }

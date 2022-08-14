@@ -168,6 +168,76 @@ type (
 		AccessExpire int64  `json:"accessexpire"`
 		RefreshAfter int64  `json:"refreshafter"`
 	}
+
+	Store {
+		Id         int64  `json:"id"`
+		Merchantid int64  `json:"merchantid"`
+		Order      int64  `json:"order"`
+		Status     int64  `json:"status"`
+		CreatedAt  string `json:"createdat"`
+		UpdatedAt  string `json:"updatedat"`
+	}
+	StoreLaguage {
+		Storeid     int64  `json:"id,optional,default=''"`
+		Name        string `json:"name,optional,default=''"`
+		Keyword     string `json:"keyword,optional,default=''"`
+		Description string `json:"description,optional,default=''"`
+		Laguageid   int64  `json:"laguageid"`
+		CreatedAt   string `json:"createdat"`
+		UpdatedAt   string `json:"updatedat"`
+	}
+	StoreReply {
+		Code       int64  `json:"code"`
+		Msg        string `json:"msg"`
+		Id         int64  `json:"id"`
+		Merchantid int64  `json:"merchantid"`
+		Order      int64  `json:"order"`
+		Status     int64  `json:"status"`
+		CreatedAt  string `json:"createdat"`
+		UpdatedAt  string `json:"updatedat"`
+	}
+	StoreAddReq {
+		Merchantid   int64          `json:"merchantid"`
+		Order        int64          `json:"order"`
+		Status       int64          `json:"status,optional,default=1"`
+		StoreLaguage []StoreLaguage `json:"storeLaguage"`
+	}
+	StoreUpdateReq {
+		Id           int64          `json:"id"`
+		Order        int64          `json:"order,optional,default=0"`
+		Status       int64          `json:"status,optional,default=1"`
+		StoreLaguage []StoreLaguage `json:"storeLaguage"`
+	}
+	StoreGetReq {
+		Id int64 `json:"id"`
+	}
+
+	StoreDeleteReq {
+		Id int64 `json:"id"`
+	}
+	StoreDeleteReply {
+		Code int64  `json:"code"`
+		Msg  string `json:"msg"`
+		Id   int64  `json:"id"`
+	}
+	StoreSearchReq {
+		Keyword   string `json:"keyword,optional,default=''"`
+		Page      int64  `json:"page,optional,default=1"`
+		Status    int64  `json:"status,optional,default=1"`
+		PageSize  int64  `json:"pagesize,optional,default=1"`
+		LastId    int64  `json:"lastid,optional,default=0"`
+		OrderType string `json:"ordertype,optional,default=desc"`
+	}
+	StoreSearchReply {
+		Code        int64   `json:"code"`
+		Msg         string  `json:"msg"`
+		Stores      []Store `json:"stores"`
+		IsEnd       bool    `json:"isend"`
+		LastVal     int64   `json:"lastval"`
+		Total       int64   `json:"total"`
+		CurrentPage int64   `json:"currentpage"`
+		TotalPage   int64   `json:"totalpage"`
+	}
 )
 
 service lib-api{
@@ -197,4 +267,15 @@ service lib-api{
 	post /v1/lib/merchant/user/search (MerchantSearchReq) returns (MerchantUserSearchReply)
 	@handler merchantuserlogin
 	post /v1/lib/merchant/user/login (MerchantUserLoginReq) returns (MerchantUserLoginReply)
+	//store
+	@handler storeadd
+	post /v1/lib/store/add (StoreAddReq) returns (StoreReply)
+	@handler storeupdate
+	post /v1/lib/store/update (StoreUpdateReq) returns (StoreReply)
+	@handler storeget
+	post /v1/lib/store/get (StoreGetReq) returns (StoreReply)
+	@handler storedelete
+	post /v1/lib/store/delete (StoreDeleteReq) returns (StoreDeleteReply)
+	@handler storesearch
+	post /v1/lib/store/search (StoreSearchReq) returns (StoreSearchReply)
 }

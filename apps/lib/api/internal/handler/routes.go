@@ -72,6 +72,31 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/v1/lib/merchant/user/login",
 				Handler: merchantuserloginHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/store/add",
+				Handler: storeaddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/store/update",
+				Handler: storeupdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/store/get",
+				Handler: storegetHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/store/delete",
+				Handler: storedeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/store/search",
+				Handler: storesearchHandler(serverCtx),
+			},
 		},
 	)
 }
