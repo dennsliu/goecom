@@ -86,9 +86,9 @@ type MerchantSearchReply struct {
 
 type MerchantUser struct {
 	Id          int64  `json:"id"`
-	NickName    string `json:"nickname"`
+	Nickname    string `json:"nickname"`
 	Email       string `json:"email"`
-	UserName    string `json:"username"`
+	Username    string `json:"username"`
 	Password    string `json:"password"`
 	Telephone   string `json:"telephone"`
 	Mobliephone string `json:"mobliephone"`
@@ -102,9 +102,9 @@ type MerchantUserReply struct {
 	Code        int64  `json:"code"`
 	Msg         string `json:"msg"`
 	Id          int64  `json:"id"`
-	NickName    string `json:"nickname"`
+	Nickname    string `json:"nickname"`
 	Email       string `json:"email"`
-	UserName    string `json:"username"`
+	Username    string `json:"username"`
 	Password    string `json:"password"`
 	Telephone   string `json:"telephone"`
 	Mobliephone string `json:"mobliephone"`
@@ -115,8 +115,8 @@ type MerchantUserReply struct {
 }
 
 type MerchantUserAddReq struct {
-	NickName    string `json:"nickname,optional,default=''"`
-	UserName    string `json:"username"`
+	Nickname    string `json:"nickname,optional,default=''"`
+	Username    string `json:"username"`
 	Email       string `json:"email"`
 	Password    string `json:"password"`
 	Telephone   string `json:"telephone,optional,default=''"`
@@ -125,10 +125,12 @@ type MerchantUserAddReq struct {
 }
 
 type MerchantUserUpdateReq struct {
-	NickName    string `json:"nickname,optional,default=''"`
+	Id          int64  `json:"id"`
+	Nickname    string `json:"nickname,optional,default=''"`
 	Telephone   string `json:"telephone,optional,default=''"`
 	Mobliephone string `json:"mobliephone,optional,default=''"`
 	MerchantId  int64  `json:"merchantid"`
+	Status      int64  `json:"status,default=0"`
 }
 
 type MerchantUserGetReq struct {
@@ -166,7 +168,7 @@ type MerchantUserSearchReply struct {
 }
 
 type MerchantUserLoginReq struct {
-	UserName string `json:"username"`
+	Username string `json:"username"`
 	Password string `json:"password"`
 	Type     int64  `json:"type,optional,default=0"`
 }
@@ -175,9 +177,9 @@ type MerchantUserLoginReply struct {
 	Code         int64  `json:"code"`
 	Msg          string `json:"msg"`
 	Id           int64  `json:"id"`
-	NickName     string `json:"nickname"`
+	Nickname     string `json:"nickname"`
 	Email        string `json:"email"`
-	UserName     string `json:"username"`
+	Username     string `json:"username"`
 	Password     string `json:"password"`
 	Telephone    string `json:"telephone"`
 	Mobliephone  string `json:"mobliephone"`

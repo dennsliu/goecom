@@ -40,8 +40,8 @@ func NewMerchantuserloginLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *MerchantuserloginLogic) Merchantuserlogin(req *types.MerchantUserLoginReq) (*types.MerchantUserLoginReply, error) {
 	// todo: add your logic here and delete this line
 	fmt.Print("--------------777-------------")
-	if len(strings.TrimSpace(req.UserName)) == 0 || len(strings.TrimSpace(req.Password)) == 0 {
-		return nil, errors.Wrapf(ErrUsernamePwdNullError, "Merchantuserlogin err null username:%s , password:%s, type:%s", req.UserName, req.Password, req.Type)
+	if len(strings.TrimSpace(req.Username)) == 0 || len(strings.TrimSpace(req.Password)) == 0 {
+		return nil, errors.Wrapf(ErrUsernamePwdNullError, "Merchantuserlogin err null username:%s , password:%s, type:%s", req.Username, req.Password, req.Type)
 	}
 	var resp types.MerchantUserLoginReply
 	encodingPassword, errPass := tool.Md5ByString(req.Password)
@@ -50,27 +50,27 @@ func (l *MerchantuserloginLogic) Merchantuserlogin(req *types.MerchantUserLoginR
 		return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin encoding password error :%s, err:%v", req.Password, errPass)
 	}
 	if req.Type == 1 {
-		userUsernameEmail, errEmail := l.svcCtx.MerchantUserModel.FindOneByEmail(l.ctx, req.UserName)
+		userUsernameEmail, errEmail := l.svcCtx.MerchantUserModel.FindOneByEmail(l.ctx, req.Username)
 		if errEmail != nil {
 			logx.Errorf("merchant user login error: %v", errEmail)
-			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.UserName, errEmail)
+			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.Username, errEmail)
 		}
 		if encodingPassword != userUsernameEmail.Password {
 			logx.Errorf("Merchantuserlogin password mismatch")
-			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin password mismatch username :%s, password:%s", req.UserName, req.Password)
+			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin password mismatch username :%s, password:%s", req.Username, req.Password)
 		}
 		tokenEmailResp, tokenEmailerr := l.svcCtx.LibRpc.GenerateToken(l.ctx, &lib.GenerateTokenReq{
 			UserId: userUsernameEmail.Id,
 		})
 		if tokenEmailerr != nil {
 			logx.Errorf("merchant user login error: %v", tokenEmailerr)
-			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.UserName, tokenEmailerr)
+			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.Username, tokenEmailerr)
 		}
 		resp.Code = 200
 		resp.Msg = "login successfully"
 		resp.Id = userUsernameEmail.Id
-		resp.NickName = userUsernameEmail.Nickname
-		resp.UserName = userUsernameEmail.Username
+		resp.Nickname = userUsernameEmail.Nickname
+		resp.Username = userUsernameEmail.Username
 		resp.Email = userUsernameEmail.Email
 		resp.Password = userUsernameEmail.Password
 		resp.Telephone = userUsernameEmail.Telephone
@@ -84,28 +84,28 @@ func (l *MerchantuserloginLogic) Merchantuserlogin(req *types.MerchantUserLoginR
 		resp.RefreshAfter = tokenEmailResp.RefreshAfter
 
 	} else {
-		userUsernameUsername, errUsername := l.svcCtx.MerchantUserModel.FindOneByUsername(l.ctx, req.UserName)
+		userUsernameUsername, errUsername := l.svcCtx.MerchantUserModel.FindOneByUsername(l.ctx, req.Username)
 		if errUsername != nil {
 			logx.Errorf("merchant user login error: %v", errUsername)
-			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.UserName, errUsername)
+			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.Username, errUsername)
 		}
 		if encodingPassword != userUsernameUsername.Password {
 			logx.Errorf("Merchantuserlogin password mismatch")
-			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin password mismatch username :%s, password:%s", req.UserName, req.Password)
+			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin password mismatch username :%s, password:%s", req.Username, req.Password)
 		}
 		tokenUsernameResp, tokenUsernameerr := l.svcCtx.LibRpc.GenerateToken(l.ctx, &lib.GenerateTokenReq{
 			UserId: userUsernameUsername.Id,
 		})
 		if tokenUsernameerr != nil {
 			logx.Errorf("merchant user login error: %v", tokenUsernameerr)
-			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.UserName, tokenUsernameerr)
+			return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuserlogin err :%s, err:%v", req.Username, tokenUsernameerr)
 		}
 		fmt.Print("--------------99999-------------")
 		resp.Code = 200
 		resp.Msg = "login successfully"
 		resp.Id = userUsernameUsername.Id
-		resp.NickName = userUsernameUsername.Nickname
-		resp.UserName = userUsernameUsername.Username
+		resp.Nickname = userUsernameUsername.Nickname
+		resp.Username = userUsernameUsername.Username
 		resp.Email = userUsernameUsername.Email
 		resp.Password = userUsernameUsername.Password
 		resp.Telephone = userUsernameUsername.Telephone

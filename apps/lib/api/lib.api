@@ -72,9 +72,9 @@ type (
 	}
 	MerchantUser {
 		Id          int64  `json:"id"`
-		NickName    string `json:"nickname"`
+		Nickname    string `json:"nickname"`
 		Email       string `json:"email"`
-		UserName    string `json:"username"`
+		Username    string `json:"username"`
 		Password    string `json:"password"`
 		Telephone   string `json:"telephone"`
 		Mobliephone string `json:"mobliephone"`
@@ -87,9 +87,9 @@ type (
 		Code        int64  `json:"code"`
 		Msg         string `json:"msg"`
 		Id          int64  `json:"id"`
-		NickName    string `json:"nickname"`
+		Nickname    string `json:"nickname"`
 		Email       string `json:"email"`
-		UserName    string `json:"username"`
+		Username    string `json:"username"`
 		Password    string `json:"password"`
 		Telephone   string `json:"telephone"`
 		Mobliephone string `json:"mobliephone"`
@@ -99,8 +99,8 @@ type (
 		UpdatedAt   string `json:"updatedat"`
 	}
 	MerchantUserAddReq {
-		NickName    string `json:"nickname,optional,default=''"`
-		UserName    string `json:"username"`
+		Nickname    string `json:"nickname,optional,default=''"`
+		Username    string `json:"username"`
 		Email       string `json:"email"`
 		Password    string `json:"password"`
 		Telephone   string `json:"telephone,optional,default=''"`
@@ -108,10 +108,12 @@ type (
 		MerchantId  int64  `json:"merchantid"`
 	}
 	MerchantUserUpdateReq {
-		NickName    string `json:"nickname,optional,default=''"`
+		Id          int64  `json:"id"`
+		Nickname    string `json:"nickname,optional,default=''"`
 		Telephone   string `json:"telephone,optional,default=''"`
 		Mobliephone string `json:"mobliephone,optional,default=''"`
 		MerchantId  int64  `json:"merchantid"`
+		Status      int64  `json:"status,default=0"`
 	}
 	MerchantUserGetReq {
 		Id int64 `json:"id"`
@@ -144,7 +146,7 @@ type (
 		TotalPage    int64          `json:"totalpage"`
 	}
 	MerchantUserLoginReq {
-		UserName string `json:"username"`
+		Username string `json:"username"`
 		Password string `json:"password"`
 		Type     int64  `json:"type,optional,default=0"`
 	}
@@ -152,9 +154,9 @@ type (
 		Code         int64  `json:"code"`
 		Msg          string `json:"msg"`
 		Id           int64  `json:"id"`
-		NickName     string `json:"nickname"`
+		Nickname     string `json:"nickname"`
 		Email        string `json:"email"`
-		UserName     string `json:"username"`
+		Username     string `json:"username"`
 		Password     string `json:"password"`
 		Telephone    string `json:"telephone"`
 		Mobliephone  string `json:"mobliephone"`

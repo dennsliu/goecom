@@ -55,7 +55,9 @@ type (
 		UpdatedAt   string `db:"updated_at"`
 	}
 )
-
+func (MerchantUser) TableName() string {
+    return "merchant_user"
+}
 func newMerchantUserModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultMerchantUserModel {
 	return &defaultMerchantUserModel{
 		CachedConn: sqlc.NewConn(conn, c),

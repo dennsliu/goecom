@@ -52,3 +52,14 @@ $ curl -i -X POST \
  -d '{
 "id":1
 }'
+$ curl -i -X POST \
+ http://127.0.0.1:6001/v1/lib/merchant/user/search \
+ -H 'Content-Type: application/json' \
+ -d '{
+"page":1,
+"lastid":0,
+"keyword":"",
+"pagesize":3,
+"status":1,
+"ordertype":"desc"
+}'

@@ -1027,6 +1027,10 @@
     "MerchantUserUpdateReq": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "nickname": {
           "type": "string",
           "default": "''"
@@ -1042,14 +1046,21 @@
         "merchantid": {
           "type": "integer",
           "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0"
         }
       },
       "title": "MerchantUserUpdateReq",
       "required": [
+        "id",
         "nickname",
         "telephone",
         "mobliephone",
-        "merchantid"
+        "merchantid",
+        "status"
       ]
     },
     "Reply": {

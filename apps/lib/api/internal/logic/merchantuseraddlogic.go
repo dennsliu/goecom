@@ -29,9 +29,9 @@ func NewMerchantuseraddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *M
 }
 func (l *MerchantuseraddLogic) Merchantuseradd(req *types.MerchantUserAddReq) (resp *types.MerchantUser, err error) {
 	// todo: add your logic here and delete this line
-	if len(strings.TrimSpace(req.UserName)) == 0 {
-		logx.Errorf("Merchantuseradd err null username:%s", req.UserName)
-		return nil, errors.Wrapf(ErrUsernameNullError, "Merchantuseradd err null username:%s", req.UserName)
+	if len(strings.TrimSpace(req.Username)) == 0 {
+		logx.Errorf("Merchantuseradd err null username:%s", req.Username)
+		return nil, errors.Wrapf(ErrUsernameNullError, "Merchantuseradd err null username:%s", req.Username)
 	}
 	if len(strings.TrimSpace(req.Email)) == 0 {
 		logx.Errorf("Merchantuseradd err null email:%s", req.Email)
@@ -47,8 +47,8 @@ func (l *MerchantuseraddLogic) Merchantuseradd(req *types.MerchantUserAddReq) (r
 		return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuseradd encoding password error :%s, err:%v", req.Password, errPass)
 	}
 	merchantUserModel := new(model.MerchantUser)
-	merchantUserModel.Nickname = req.NickName
-	merchantUserModel.Username = req.UserName
+	merchantUserModel.Nickname = req.Nickname
+	merchantUserModel.Username = req.Username
 	merchantUserModel.Email = req.Email
 	merchantUserModel.Password = encodingPassword
 	merchantUserModel.Telephone = req.Telephone
@@ -60,17 +60,17 @@ func (l *MerchantuseraddLogic) Merchantuseradd(req *types.MerchantUserAddReq) (r
 	_, err = l.svcCtx.MerchantUserModel.Insert(l.ctx, merchantUserModel)
 	if err != nil {
 		logx.Errorf("Merchantuseradd insert error: %v", err)
-		return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuseradd insert err username:%s, err:%v", req.UserName, err)
+		return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuseradd insert err username:%s, err:%v", req.Username, err)
 	}
-	userInfo, err := l.svcCtx.MerchantUserModel.FindOneByUsername(l.ctx, req.UserName)
+	userInfo, err := l.svcCtx.MerchantUserModel.FindOneByUsername(l.ctx, req.Username)
 	if err != nil {
 		logx.Errorf("Merchantuseradd find error: %v", err)
-		return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuseradd find err username:%s, err:%v", req.UserName, err)
+		return nil, errors.Wrapf(ErrUsernamePwdError, "Merchantuseradd find err username:%s, err:%v", req.Username, err)
 	}
 	return &types.MerchantUser{
 		Id:          userInfo.Id,
-		NickName:    userInfo.Nickname,
-		UserName:    userInfo.Username,
+		Nickname:    userInfo.Nickname,
+		Username:    userInfo.Username,
 		Email:       userInfo.Email,
 		Password:    userInfo.Password,
 		Telephone:   userInfo.Telephone,

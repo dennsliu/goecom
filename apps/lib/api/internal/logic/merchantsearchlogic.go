@@ -57,10 +57,9 @@ func (l *MerchantsearchLogic) Merchantsearch(req *types.MerchantSearchReq) (resp
 	rsp.Msg = "Get merchant list successfully"
 	rsp.IsEnd = true
 
-	rsp.Mechants = make([]types.Merchant, size, size)
+	rsp.Mechants = make([]types.Merchant, size)
 	for i := 0; i < size; i++ {
 		rsp.Mechants[i].Id = (merchants)[i].Id
-		rsp.Mechants[i].Name = (merchants)[i].Name
 		rsp.Mechants[i].Name = (merchants)[i].Name
 		rsp.Mechants[i].Status = (merchants)[i].Status
 		rsp.Mechants[i].CreatedAt = (merchants)[i].CreatedAt
