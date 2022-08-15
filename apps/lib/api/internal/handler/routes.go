@@ -97,6 +97,31 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/v1/lib/store/search",
 				Handler: storesearchHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/languages/add",
+				Handler: languagesaddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/languages/update",
+				Handler: languagesupdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/languages/get",
+				Handler: languagesgetHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/languages/delete",
+				Handler: languagesdeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/v1/lib/languages/search",
+				Handler: languagessearchHandler(serverCtx),
+			},
 		},
 	)
 }

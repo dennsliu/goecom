@@ -22,11 +22,16 @@ var (
 	storeRowsWithPlaceHolder = strings.Join(stringx.Remove(storeFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), "=?,") + "=?"
 
 	cacheStoreIdPrefix = "cache:store:id:"
+
+	storeLanguageFieldNames          = builder.RawFieldNames(&StoreLanguage{})
+	storeLanguageRows                = strings.Join(storeLanguageFieldNames, ",")
+	storeLanguageRowsExpectAutoSet   = strings.Join(stringx.Remove(storeLanguageFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), ",")
 )
 
 type (
 	storeModel interface {
 		Insert(ctx context.Context, data *Store) (sql.Result, error)
+		InsertLanguage(ctx context.Context, data *StoreLanguage) (sql.Result, error)
 		FindOne(ctx context.Context, id int64) (*Store, error)
 		Update(ctx context.Context, newData *Store) error
 		Delete(ctx context.Context, id int64) error
@@ -42,6 +47,15 @@ type (
 		MerchantId int64     `db:"merchant_id"` // store Merchant id
 		Status     int64     `db:"status"`      // store status(0 active, -1 inactive)
 		Order      int64     `db:"order"`       // order
+		CreatedAt  string `db:"created_at"`
+		UpdatedAt  string `db:"updated_at"`
+	}
+	StoreLanguage struct {
+		Storeid         int64     `db:"store_id"`          // store id
+		Name string     `db:"name"` 
+		Keyword     string     `db:"keyword"`     
+		Description      string     `db:"description"`  
+		Laguageid         int64     `db:"laguage_id"`      
 		CreatedAt  string `db:"created_at"`
 		UpdatedAt  string `db:"updated_at"`
 	}
@@ -85,6 +99,14 @@ func (m *defaultStoreModel) Insert(ctx context.Context, data *Store) (sql.Result
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?)", m.table, storeRowsExpectAutoSet)
 		return conn.ExecCtx(ctx, query, data.MerchantId, data.Status, data.Order, data.CreatedAt, data.UpdatedAt)
+	}, storeIdKey)
+	return ret, err
+}
+func (m *defaultStoreModel) InsertLanguage(ctx context.Context, data *StoreLanguage) (sql.Result, error) {
+	storeIdKey := fmt.Sprintf("%s%v", cacheStoreIdPrefix, data.Storeid+'_'+data.Laguageid)
+	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?)", "store_language", storeLanguageRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.Storeid, data.Name, data.Keyword,data.Description, data.Laguageid,  data.CreatedAt, data.UpdatedAt)
 	}, storeIdKey)
 	return ret, err
 }

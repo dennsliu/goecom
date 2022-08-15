@@ -217,7 +217,6 @@ type StoreReply struct {
 	Id         int64  `json:"id"`
 	Merchantid int64  `json:"merchantid"`
 	Order      int64  `json:"order"`
-	Status     int64  `json:"status"`
 	CreatedAt  string `json:"createdat"`
 	UpdatedAt  string `json:"updatedat"`
 }
@@ -268,4 +267,79 @@ type StoreSearchReply struct {
 	Total       int64   `json:"total"`
 	CurrentPage int64   `json:"currentpage"`
 	TotalPage   int64   `json:"totalpage"`
+}
+
+type Languages struct {
+	Id        int64  `json:"id"`
+	Name      string `json:"name"`
+	Code      string `json:"code"`
+	Image     string `json:"image"`
+	Directory string `json:"directory"`
+	Order     int64  `json:"order"`
+	Status    int64  `json:"status"`
+	CreatedAt string `json:"createdat"`
+	UpdatedAt string `json:"updatedat"`
+}
+
+type LanguagesReply struct {
+	Code         int64  `json:"code"`
+	Msg          string `json:"msg"`
+	Id           int64  `json:"id"`
+	Name         string `json:"name"`
+	Languagecode string `json:"languagecode"`
+	Image        string `json:"image"`
+	Directory    string `json:"directory"`
+	Order        int64  `json:"order"`
+	CreatedAt    string `json:"createdat"`
+	UpdatedAt    string `json:"updatedat"`
+}
+
+type LanguagesAddReq struct {
+	Name         string `json:"name"`
+	Languagecode string `json:"languagecode"`
+	Image        string `json:"image"`
+	Directory    string `json:"directory"`
+	Order        int64  `json:"order"`
+}
+
+type LanguagesUpdateReq struct {
+	Id           int64  `json:"id"`
+	Name         string `json:"name"`
+	Languagecode string `json:"languagecode"`
+	Image        string `json:"image"`
+	Directory    string `json:"directory"`
+	Order        int64  `json:"order"`
+}
+
+type LanguagesGetReq struct {
+	Id int64 `json:"id"`
+}
+
+type LanguagesDeleteReq struct {
+	Id int64 `json:"id"`
+}
+
+type LanguagesDeleteReply struct {
+	Code int64  `json:"code"`
+	Msg  string `json:"msg"`
+	Id   int64  `json:"id"`
+}
+
+type LanguagesSearchReq struct {
+	Keyword   string `json:"keyword,optional,default=''"`
+	Page      int64  `json:"page,optional,default=1"`
+	PageSize  int64  `json:"pagesize,optional,default=1"`
+	LastId    int64  `json:"lastid,optional,default=0"`
+	OrderType string `json:"ordertype,optional,default=desc"`
+}
+
+type LanguagesSearchReply struct {
+	Code        int64       `json:"code"`
+	Msg         string      `json:"msg"`
+	Languages   []Languages `json:"languages"`
+	IsEnd       bool        `json:"isend"`
+	LastVal     int64       `json:"lastval"`
+	Total       int64       `json:"total"`
+	CurrentPage int64       `json:"currentpage"`
+	TotalPage   int64       `json:"totalpage"`
 }

@@ -7,6 +7,7 @@ lib model:
 goctl model mysql ddl -src merchant.sql -dir . -c -style goZero
 goctl model mysql ddl -src merchant_user.sql -dir . -c -style goZero
 goctl model mysql ddl -src store.sql -dir . -c -style goZero
+goctl model mysql ddl -src languages.sql -dir . -c -style goZero
 
 product model:
 goctl model mysql ddl -src product_brand.sql -dir . -c -style goZero

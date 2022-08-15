@@ -19,6 +19,7 @@ type ServiceContext struct {
 	MerchantModel     model.MerchantModel
 	MerchantUserModel model.MerchantUserModel
 	StoreModel        model.StoreModel
+	LanguagesModel    model.LanguagesModel
 	Gorm              *gorm.DB
 }
 
@@ -30,6 +31,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		MerchantModel:     model.NewMerchantModel(sqlConn, c.Cache),
 		MerchantUserModel: model.NewMerchantUserModel(sqlConn, c.Cache),
 		StoreModel:        model.NewStoreModel(sqlConn, c.Cache),
+		LanguagesModel:    model.NewLanguagesModel(sqlConn, c.Cache),
 		Gorm:              xgorm.NewGorm(c.DB.DataSource),
 	}
 }
