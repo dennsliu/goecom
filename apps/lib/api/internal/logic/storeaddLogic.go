@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"goecom/apps/lib/api/internal/svc"
@@ -37,7 +38,21 @@ func (l *StoreaddLogic) Storeadd(req *types.StoreAddReq) (resp *types.StoreReply
 	insertResult, err := l.svcCtx.StoreModel.Insert(l.ctx, storeModel)
 	lastId, err := insertResult.LastInsertId()
 	if len(req.StoreLaguage) > 0 {
-
+		for _, storeLanguage := range req.StoreLaguage {
+			fmt.Printf("------------result------storeLanguage:")
+			fmt.Print(storeLanguage)
+			storeLanguageModel := new(model.StoreLanguage)
+			storeLanguageModel.Storeid = lastId
+			storeLanguageModel.Name = storeLanguage.Name
+			storeLanguageModel.Keyword = storeLanguage.Keyword
+			storeLanguageModel.Description = storeLanguage.Description
+			storeLanguageModel.Laguageid = storeLanguage.Laguageid
+			storeLanguageModel.CreatedAt = time.Now().Format("2006-01-02 15:04:05")
+			storeLanguageModel.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
+			insertLanguageResult, err := l.svcCtx.StoreModel.InsertLanguage(l.ctx, storeLanguageModel)
+			fmt.Print(insertLanguageResult)
+			fmt.Print(err)
+		}
 	}
 	storeInfo, err := l.svcCtx.StoreModel.FindOne(l.ctx, lastId)
 	if err != nil {

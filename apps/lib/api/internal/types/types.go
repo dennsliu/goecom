@@ -211,6 +211,13 @@ type StoreLaguage struct {
 	UpdatedAt   string `json:"updatedat"`
 }
 
+type StoreAddLaguageReq struct {
+	Name        string `json:"name,optional,default=''"`
+	Keyword     string `json:"keyword,optional,default=''"`
+	Description string `json:"description,optional,default=''"`
+	Laguageid   int64  `json:"laguageid"`
+}
+
 type StoreReply struct {
 	Code       int64  `json:"code"`
 	Msg        string `json:"msg"`
@@ -222,10 +229,10 @@ type StoreReply struct {
 }
 
 type StoreAddReq struct {
-	Merchantid   int64          `json:"merchantid"`
-	Order        int64          `json:"order"`
-	Status       int64          `json:"status,optional,default=1"`
-	StoreLaguage []StoreLaguage `json:"storeLaguage"`
+	Merchantid   int64                `json:"merchantid"`
+	Order        int64                `json:"order"`
+	Status       int64                `json:"status,optional,default=1"`
+	StoreLaguage []StoreAddLaguageReq `json:"storeLaguage"`
 }
 
 type StoreUpdateReq struct {
@@ -276,7 +283,6 @@ type Languages struct {
 	Image     string `json:"image"`
 	Directory string `json:"directory"`
 	Order     int64  `json:"order"`
-	Status    int64  `json:"status"`
 	CreatedAt string `json:"createdat"`
 	UpdatedAt string `json:"updatedat"`
 }

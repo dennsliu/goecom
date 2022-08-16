@@ -93,7 +93,9 @@ func (m *defaultStoreModel) FindOne(ctx context.Context, id int64) (*Store, erro
 		return nil, err
 	}
 }
-
+func (Store) TableName() string {
+    return "store"
+}
 func (m *defaultStoreModel) Insert(ctx context.Context, data *Store) (sql.Result, error) {
 	storeIdKey := fmt.Sprintf("%s%v", cacheStoreIdPrefix, data.Id)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
