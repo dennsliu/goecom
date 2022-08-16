@@ -243,6 +243,37 @@ services:
       mallv1:
         ipv4_address: 172.18.11.17
     restart: always  
+  service.lib:
+    build:
+      context: ./
+      dockerfile: ./apps/lib/api/Dockerfile
+    container_name: service.lib
+    ports:
+      - "6001:6001"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.18
+    environment:
+      - PARAMS=-p 8080 --registry etcd --registry_address etcd:2379
+    restart: always
+    links:
+      - etcd:etcd
+  service.librpc:
+    build:
+      context: ./
+      dockerfile: ./apps/lib/rpc/Dockerfile
+    container_name: service.librpc
+    ports:
+      - "5001:5001"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.19
+    environment:
+      #- PARAMS=--registry etcd --registry_address etcd:2379
+      - PARAMS=-p 8081 --registry etcd --registry_address etcd:2379
+    restart: always
+    links:
+      - etcd:etcd
 # 网络配置
 networks:
   mallv1:

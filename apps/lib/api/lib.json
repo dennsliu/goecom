@@ -1214,6 +1214,10 @@
           "type": "integer",
           "format": "int64"
         },
+        "merchantname": {
+          "type": "string",
+          "default": "''"
+        },
         "status": {
           "type": "integer",
           "format": "int64"
@@ -1235,6 +1239,7 @@
         "telephone",
         "mobliephone",
         "merchantid",
+        "merchantname",
         "status",
         "createdat",
         "updatedat"
@@ -1464,6 +1469,10 @@
           "type": "integer",
           "format": "int64"
         },
+        "merchantname": {
+          "type": "string",
+          "default": "''"
+        },
         "status": {
           "type": "integer",
           "format": "int64"
@@ -1487,6 +1496,7 @@
         "telephone",
         "mobliephone",
         "merchantid",
+        "merchantname",
         "status",
         "createdat",
         "updatedat"
@@ -1650,6 +1660,10 @@
           "type": "integer",
           "format": "int64"
         },
+        "merchantname": {
+          "type": "string",
+          "default": "''"
+        },
         "order": {
           "type": "integer",
           "format": "int64"
@@ -1669,6 +1683,7 @@
       "required": [
         "id",
         "merchantid",
+        "merchantname",
         "order",
         "status",
         "createdat",
@@ -1842,6 +1857,10 @@
           "type": "integer",
           "format": "int64"
         },
+        "merchantname": {
+          "type": "string",
+          "default": "''"
+        },
         "order": {
           "type": "integer",
           "format": "int64"
@@ -1859,6 +1878,7 @@
         "msg",
         "id",
         "merchantid",
+        "merchantname",
         "order",
         "createdat",
         "updatedat"

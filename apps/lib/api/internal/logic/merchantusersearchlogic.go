@@ -8,6 +8,7 @@ import (
 	"goecom/apps/lib/api/internal/svc"
 	"goecom/apps/lib/api/internal/types"
 	"goecom/apps/lib/model"
+	"goecom/apps/lib/rpc/types/lib"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -59,6 +60,9 @@ func (l *MerchantusersearchLogic) Merchantusersearch(req *types.MerchantSearchRe
 
 	rsp.MechantUsers = make([]types.MerchantUser, size)
 	for i := 0; i < size; i++ {
+		merchantResult, _ := l.svcCtx.LibRpc.GetMerchant(l.ctx, &lib.GetMerchantReq{
+			Id: (merchantUsers)[i].MerchantId,
+		})
 		rsp.MechantUsers[i].Id = (merchantUsers)[i].Id
 		rsp.MechantUsers[i].Nickname = (merchantUsers)[i].Nickname
 		rsp.MechantUsers[i].Username = (merchantUsers)[i].Username
@@ -66,6 +70,7 @@ func (l *MerchantusersearchLogic) Merchantusersearch(req *types.MerchantSearchRe
 		rsp.MechantUsers[i].Telephone = (merchantUsers)[i].Telephone
 		rsp.MechantUsers[i].Mobliephone = (merchantUsers)[i].Mobliephone
 		rsp.MechantUsers[i].MerchantId = (merchantUsers)[i].MerchantId
+		rsp.MechantUsers[i].Merchantname = merchantResult.Name
 		rsp.MechantUsers[i].Status = (merchantUsers)[i].Status
 		rsp.MechantUsers[i].CreatedAt = (merchantUsers)[i].CreatedAt
 		rsp.MechantUsers[i].UpdatedAt = (merchantUsers)[i].UpdatedAt

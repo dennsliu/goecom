@@ -8,6 +8,7 @@ import (
 	"goecom/apps/lib/api/internal/svc"
 	"goecom/apps/lib/api/internal/types"
 	"goecom/apps/lib/model"
+	"goecom/apps/lib/rpc/types/lib"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -37,7 +38,6 @@ func (l *StoresearchLogic) Storesearch(req *types.StoreSearchReq) (resp *types.S
 		currentPage = req.Page
 	}
 	resultData.Limit(int(req.PageSize)).Offset(((int(currentPage) - 1) * int(req.PageSize)))
-
 	resultData.Scan(&stores).Limit(-1).Offset(-1).Count(&count)
 	err = resultData.Error
 	fmt.Printf("------------result------count:%d", count)
@@ -53,11 +53,14 @@ func (l *StoresearchLogic) Storesearch(req *types.StoreSearchReq) (resp *types.S
 	rsp.Code = 200
 	rsp.Msg = "Get merchant list successfully"
 	rsp.IsEnd = true
-
 	rsp.Stores = make([]types.Store, size)
 	for i := 0; i < size; i++ {
+		merchantResult, _ := l.svcCtx.LibRpc.GetMerchant(l.ctx, &lib.GetMerchantReq{
+			Id: (stores)[i].MerchantId,
+		})
 		rsp.Stores[i].Id = (stores)[i].Id
-		rsp.Stores[i].Merchantid = (stores)[i].Merchantid
+		rsp.Stores[i].MerchantId = (stores)[i].MerchantId
+		rsp.Stores[i].Merchantname = merchantResult.Name
 		rsp.Stores[i].Order = (stores)[i].Order
 		rsp.Stores[i].CreatedAt = (stores)[i].CreatedAt
 		rsp.Stores[i].UpdatedAt = (stores)[i].UpdatedAt

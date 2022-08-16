@@ -85,33 +85,35 @@ type MerchantSearchReply struct {
 }
 
 type MerchantUser struct {
-	Id          int64  `json:"id"`
-	Nickname    string `json:"nickname"`
-	Email       string `json:"email"`
-	Username    string `json:"username"`
-	Password    string `json:"password"`
-	Telephone   string `json:"telephone"`
-	Mobliephone string `json:"mobliephone"`
-	MerchantId  int64  `json:"merchantid"`
-	Status      int64  `json:"status"`
-	CreatedAt   string `json:"createdat"`
-	UpdatedAt   string `json:"updatedat"`
+	Id           int64  `json:"id"`
+	Nickname     string `json:"nickname"`
+	Email        string `json:"email"`
+	Username     string `json:"username"`
+	Password     string `json:"password"`
+	Telephone    string `json:"telephone"`
+	Mobliephone  string `json:"mobliephone"`
+	MerchantId   int64  `json:"merchantid"`
+	Merchantname string `json:"merchantname,optional,default=''"`
+	Status       int64  `json:"status"`
+	CreatedAt    string `json:"createdat"`
+	UpdatedAt    string `json:"updatedat"`
 }
 
 type MerchantUserReply struct {
-	Code        int64  `json:"code"`
-	Msg         string `json:"msg"`
-	Id          int64  `json:"id"`
-	Nickname    string `json:"nickname"`
-	Email       string `json:"email"`
-	Username    string `json:"username"`
-	Password    string `json:"password"`
-	Telephone   string `json:"telephone"`
-	Mobliephone string `json:"mobliephone"`
-	MerchantId  int64  `json:"merchantid"`
-	Status      int64  `json:"status"`
-	CreatedAt   string `json:"createdat"`
-	UpdatedAt   string `json:"updatedat"`
+	Code         int64  `json:"code"`
+	Msg          string `json:"msg"`
+	Id           int64  `json:"id"`
+	Nickname     string `json:"nickname"`
+	Email        string `json:"email"`
+	Username     string `json:"username"`
+	Password     string `json:"password"`
+	Telephone    string `json:"telephone"`
+	Mobliephone  string `json:"mobliephone"`
+	MerchantId   int64  `json:"merchantid"`
+	Merchantname string `json:"merchantname,optional,default=''"`
+	Status       int64  `json:"status"`
+	CreatedAt    string `json:"createdat"`
+	UpdatedAt    string `json:"updatedat"`
 }
 
 type MerchantUserAddReq struct {
@@ -193,12 +195,13 @@ type MerchantUserLoginReply struct {
 }
 
 type Store struct {
-	Id         int64  `json:"id"`
-	Merchantid int64  `json:"merchantid"`
-	Order      int64  `json:"order"`
-	Status     int64  `json:"status"`
-	CreatedAt  string `json:"createdat"`
-	UpdatedAt  string `json:"updatedat"`
+	Id           int64  `json:"id"`
+	MerchantId   int64  `json:"merchantid"`
+	Merchantname string `json:"merchantname,optional,default=''"`
+	Order        int64  `json:"order"`
+	Status       int64  `json:"status"`
+	CreatedAt    string `json:"createdat"`
+	UpdatedAt    string `json:"updatedat"`
 }
 
 type StoreLaguage struct {
@@ -219,13 +222,14 @@ type StoreAddLaguageReq struct {
 }
 
 type StoreReply struct {
-	Code       int64  `json:"code"`
-	Msg        string `json:"msg"`
-	Id         int64  `json:"id"`
-	Merchantid int64  `json:"merchantid"`
-	Order      int64  `json:"order"`
-	CreatedAt  string `json:"createdat"`
-	UpdatedAt  string `json:"updatedat"`
+	Code         int64  `json:"code"`
+	Msg          string `json:"msg"`
+	Id           int64  `json:"id"`
+	Merchantid   int64  `json:"merchantid"`
+	Merchantname string `json:"merchantname,optional,default=''"`
+	Order        int64  `json:"order"`
+	CreatedAt    string `json:"createdat"`
+	UpdatedAt    string `json:"updatedat"`
 }
 
 type StoreAddReq struct {
