@@ -24,14 +24,14 @@ Log:
 LibRpc:
   Etcd:
     Hosts:
-      - 127.0.0.1:2379
+      - etcd:2379
     Key: lib.rpc
 Redis:
-  Host: 127.0.0.1:6379
+  Host: 172.18.11.9:6379
   Type: node
   #Pass: 4444444
 DB:
-  DataSource: root:123456789@tcp(127.0.0.1:3306)/goecom?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:123456789@tcp(172.18.11.8:3306)/goecom?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 Cache:
-  - Host: 127.0.0.1:6379
+  - Host: 172.18.11.9:6379
   #   Pass: 44444
