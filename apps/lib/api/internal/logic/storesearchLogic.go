@@ -55,12 +55,18 @@ func (l *StoresearchLogic) Storesearch(req *types.StoreSearchReq) (resp *types.S
 	rsp.IsEnd = true
 	rsp.Stores = make([]types.Store, size)
 	for i := 0; i < size; i++ {
-		merchantResult, _ := l.svcCtx.LibRpc.GetMerchant(l.ctx, &lib.GetMerchantReq{
+		merchantResult, err := l.svcCtx.LibRpc.GetMerchant(l.ctx, &lib.GetMerchantReq{
 			Id: (stores)[i].MerchantId,
 		})
+		var merchantname string
+		if err != nil {
+			merchantname = ""
+		} else {
+			merchantname = merchantResult.Name
+		}
 		rsp.Stores[i].Id = (stores)[i].Id
 		rsp.Stores[i].MerchantId = (stores)[i].MerchantId
-		rsp.Stores[i].Merchantname = merchantResult.Name
+		rsp.Stores[i].Merchantname = merchantname
 		rsp.Stores[i].Order = (stores)[i].Order
 		rsp.Stores[i].CreatedAt = (stores)[i].CreatedAt
 		rsp.Stores[i].UpdatedAt = (stores)[i].UpdatedAt

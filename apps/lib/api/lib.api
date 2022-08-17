@@ -173,7 +173,7 @@ type (
 
 	Store {
 		Id           int64  `json:"id"`
-		Merchantid   int64  `json:"merchantid"`
+		MerchantId   int64  `json:"merchantid"`
 		Merchantname string `json:"merchantname,optional,default=''"`
 		Order        int64  `json:"order"`
 		Status       int64  `json:"status"`

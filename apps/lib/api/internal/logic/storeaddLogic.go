@@ -30,7 +30,7 @@ func NewStoreaddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Storeadd
 func (l *StoreaddLogic) Storeadd(req *types.StoreAddReq) (resp *types.StoreReply, err error) {
 	// todo: add your logic here and delete this line
 	storeModel := new(model.Store)
-	storeModel.MerchantId = req.Merchantid
+	storeModel.MerchantId = req.MerchantId
 	storeModel.Status = req.Status
 	storeModel.Order = req.Order
 	storeModel.CreatedAt = time.Now().Format("2006-01-02 15:04:05")
@@ -64,7 +64,7 @@ func (l *StoreaddLogic) Storeadd(req *types.StoreAddReq) (resp *types.StoreReply
 		Msg:        "add store successfully",
 		Id:         storeInfo.Id,
 		Order:      storeInfo.Order,
-		Merchantid: storeInfo.MerchantId,
+		MerchantId: storeInfo.MerchantId,
 		CreatedAt:  storeInfo.CreatedAt,
 		UpdatedAt:  storeInfo.UpdatedAt,
 	}, nil

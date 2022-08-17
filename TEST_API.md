@@ -63,3 +63,14 @@ $ curl -i -X POST \
 "status":1,
 "ordertype":"desc"
 }'
+$ curl -i -X POST \
+ http://127.0.0.1:6001/v1/lib/store/search \
+ -H 'Content-Type: application/json' \
+ -d '{
+"page":1,
+"lastid":0,
+"keyword":"",
+"pagesize":3,
+"status":1,
+"ordertype":"desc"
+}'
