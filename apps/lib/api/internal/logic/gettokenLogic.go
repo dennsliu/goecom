@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"fmt"
 
 	"goecom/apps/lib/api/internal/svc"
 	"goecom/apps/lib/api/internal/types"
@@ -27,6 +28,7 @@ func NewGettokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Gettoken
 
 func (l *GettokenLogic) Gettoken(req *types.GetTokenReq) (*types.GetTokenReply, error) {
 	// todo: add your logic here and delete this line
+	fmt.Printf("------------result------:%s", "Gettoken")
 	tokenResp, err := l.svcCtx.LibRpc.GenerateToken(l.ctx, &lib.GenerateTokenReq{
 		UserId: 0,
 	})

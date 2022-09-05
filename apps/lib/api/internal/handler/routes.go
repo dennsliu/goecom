@@ -19,6 +19,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodPost,
+				Path:    "/v1/lib/merchant/user/login",
+				Handler: merchantuserloginHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
 				Path:    "/v1/lib/merchant/add",
 				Handler: merchantaddHandler(serverCtx),
 			},
@@ -66,11 +76,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/v1/lib/merchant/user/search",
 				Handler: merchantusersearchHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/v1/lib/merchant/user/login",
-				Handler: merchantuserloginHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
@@ -123,5 +128,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: languagessearchHandler(serverCtx),
 			},
 		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 	)
 }

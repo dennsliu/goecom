@@ -233,7 +233,7 @@ type StoreReply struct {
 }
 
 type StoreAddReq struct {
-	MerchantId   int64                `json:"merchantid"`
+	Merchantid   int64                `json:"merchantid"`
 	Order        int64                `json:"order"`
 	Status       int64                `json:"status,optional,default=1"`
 	StoreLaguage []StoreAddLaguageReq `json:"storeLaguage"`

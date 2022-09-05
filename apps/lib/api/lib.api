@@ -316,10 +316,18 @@ type (
 		TotalPage   int64       `json:"totalpage"`
 	}
 )
-
 service lib-api{
 	@handler gettoken
 	post /v1/lib/gettoken (GetTokenReq) returns (GetTokenReply)
+	@handler merchantuserlogin
+	post /v1/lib/merchant/user/login (MerchantUserLoginReq) returns (MerchantUserLoginReply)
+}
+
+//need token
+@server(
+	jwt: JwtAuth
+)
+service lib-api{
 	//merchant
 	@handler merchantadd
 	post /v1/lib/merchant/add (MerchantAddReq) returns (MerchantReply)
@@ -342,8 +350,6 @@ service lib-api{
 	post /v1/lib/merchant/user/delete (MerchantUserDeleteReq) returns (MerchantUserDeleteReply)
 	@handler merchantusersearch
 	post /v1/lib/merchant/user/search (MerchantSearchReq) returns (MerchantUserSearchReply)
-	@handler merchantuserlogin
-	post /v1/lib/merchant/user/login (MerchantUserLoginReq) returns (MerchantUserLoginReply)
 	//store
 	@handler storeadd
 	post /v1/lib/store/add (StoreAddReq) returns (StoreReply)

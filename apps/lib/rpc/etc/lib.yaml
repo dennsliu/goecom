@@ -3,7 +3,7 @@ ListenOn: 0.0.0.0:5001
 Mode: dev
 Etcd:
   Hosts:
-    - etcd:2379
+    - 127.0.0.1:2379
   Key: lib.rpc
 
 #jwtAuth
@@ -20,7 +20,7 @@ Prometheus:
 #Link Tracking
 Telemetry:
   Name: lib-rpc
-  Endpoint: http://jaeger-collector:14268/api/traces
+  Endpoint: http://127.0.0.1:14268/api/traces
   Sampler: 1.0
   Batcher: jaeger
 
@@ -29,15 +29,15 @@ Log:
   Level: error
 
 Redis:
-  Host: redis:6379
+  Host: 127.0.0.1:6379
   Type: node
   # Pass: 4444444
 DB:
-  DataSource: root:123456789@tcp(172.18.11.8:3306)/goecom?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:123456789@tcp(127.0.0.1:3306)/goecom?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 Cache:
-  - Host: redis:6379
+  - Host: 127.0.0.1:6379
   #   Pass: 44444
 Redis:
-  Host: redis:6379
+  Host: 127.0.0.1:6379
   Type: node
   # Pass: 4444444
